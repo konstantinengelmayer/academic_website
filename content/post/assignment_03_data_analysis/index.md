@@ -92,7 +92,7 @@ Now we can create the box plot and group it by the tree type.
       labs(x = "Tree Type", y = expression(Volume~"[1000"~m^3~"]"), 
            title = "Boxplot of Volume by Tree Type in 1000 cubic meter")
 
-![Plot1](unnamed-chunk-4-1.png)
+![Plot1](../../../static/assignment_03_data_analysis/unnamed-chunk-4-1.png)
 
 ------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ At the end we add the legend to the last row.
            lty = c(line_types[1], line_types[2], line_types[3], line_types[4], line_types[5]), 
            horiz = TRUE)
 
-![plo2](unnamed-chunk-5-1.png)
+![plo2](../../../static/assignment_03_data_analysis/unnamed-chunk-5-1.png)
 
 ------------------------------------------------------------------------
 
