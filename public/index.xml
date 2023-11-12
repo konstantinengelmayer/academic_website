@@ -6,7 +6,173 @@
         <description>Recent content on Konstantin Engelmayer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 09 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Assignment 03 - Data analysis</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/</link>
+        <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/</guid>
+        <description>&lt;hr&gt;
+&lt;h2 id=&#34;marked-assignment-read-and-plot&#34;&gt;Marked Assignment: Read and Plot&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-task&#34;&gt;1. Task&lt;/h3&gt;
+&lt;h4 id=&#34;read-the-data-provided-in-the-excel-file-and-isolate-the-tabulated-information-into-a-dataframe-class&#34;&gt;Read the data provided in the Excel file and “isolate” the tabulated information into a data.frame class.&lt;/h4&gt;
+&lt;p&gt;First we take a look at the data:
+&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/Hessen_holzeinschlag.PNG&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;HessenHolzeinschlag&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;We need to read the data with &lt;code&gt;;&lt;/code&gt; as separator and skip the first 4 and
+the last line of the .txt. Also we set year 2010 to 2014 of colored
+woods to NA, because they were counted as beechs since 2010.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data &amp;lt;- read.table(file = &amp;quot;../../data/hessen_holzeinschlag_1997-2014.csv&amp;quot;, 
+                    header = TRUE, skip =4, sep = &amp;quot;;&amp;quot;,     nrow = 18)
+colnames(data) &amp;lt;- c(&amp;quot;Year&amp;quot;, &amp;quot;Oak&amp;quot;, &amp;quot;Beech&amp;quot;, &amp;quot;ColoredWoods&amp;quot;, &amp;quot;Spruce&amp;quot;, &amp;quot;Pine&amp;quot;, &amp;quot;Total&amp;quot;)
+data[which(data$Year&amp;gt; 2009),4] &amp;lt;- NA
+print(data)
+
+##    Year Oak Beech ColoredWoods Spruce Pine Total
+## 1  1997 155  1036           21   1684  779  3675
+## 2  1998 265  1631           36   1761  951  4644
+## 3  1999 278  1796           32   1732  914  4752
+## 4  2000 204  1300            0   1024  616  3144
+## 5  2001 322  1515            0   1592  706  4135
+## 6  2002 265  1410            0   2036  663  4374
+## 7  2003 404  1698            0   2482  820  5404
+## 8  2004 400  1572            0   2775  757  5504
+## 9  2005 370  1489            0   2601  887  5347
+## 10 2006 388  1881            0   2580  844  5693
+## 11 2007 271  1816            0   6524  782  9393
+## 12 2008 292  1721            0   3698  661  6372
+## 13 2009 135  1149            0   1926  534  3744
+## 14 2010 223  1733           NA   3201  807  5964
+## 15 2011 297  1908           NA   2018  829  5052
+## 16 2012 281  1821           NA   1685  777  4564
+## 17 2013 284  1821           NA   1721  813  4639
+## 18 2014 285  1911           NA   1704  805  4705
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-task&#34;&gt;2. Task&lt;/h3&gt;
+&lt;h4 id=&#34;create-a-simple-visualization-which-gives-a-quick-temporally-non-explicit-and-descriptive-statistical-overview-of-the-harvest-by-tree-type-and-as-a-total-over-all-trees-iea-similar-kind-of-information-as-provided-by-the-summary-function&#34;&gt;Create a simple visualization which gives a quick, temporally non explicit and descriptive statistical overview of the harvest by tree type and as a total over all trees (i.e. a similar kind of information as provided by the summary function).&lt;/h4&gt;
+&lt;p&gt;I want to create a box plot with the ggplot2 package, grouped by the
+different tree types. To do that we first need to transform the data
+frame from the wide to a long format. For that we can use the tidyr
+package.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(tidyr)
+
+data_long &amp;lt;- pivot_longer(data, cols = -Year, names_to = &amp;quot;TreeType&amp;quot;, values_to = &amp;quot;Volume&amp;quot;)
+head(data_long, n = 12)
+
+## # A tibble: 12 × 3
+##     Year TreeType     Volume
+##    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;int&amp;gt;
+##  1  1997 Oak             155
+##  2  1997 Beech          1036
+##  3  1997 ColoredWoods     21
+##  4  1997 Spruce         1684
+##  5  1997 Pine            779
+##  6  1997 Total          3675
+##  7  1998 Oak             265
+##  8  1998 Beech          1631
+##  9  1998 ColoredWoods     36
+## 10  1998 Spruce         1761
+## 11  1998 Pine            951
+## 12  1998 Total          4644
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can create the box plot and group it by the tree type.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(ggplot2)
+
+ggplot(data_long, aes(x = TreeType, y = Volume, group = TreeType)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2) +         
+  theme_minimal()+
+  labs(x = &amp;quot;Tree Type&amp;quot;, y = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), 
+       title = &amp;quot;Boxplot of Volume by Tree Type in 1000 cubic meter&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/unnamed-chunk-4-1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Plot1&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;3-task&#34;&gt;3. Task&lt;/h3&gt;
+&lt;h4 id=&#34;create-another-visualization-which---in-the-same-figure-panel---shows-how-each-beech-harvest-over-the-time-span-is-related-to-each-of-the-oak-pine-spruce-and-colored-wood-harvests-in-a-2-by-2-grid-iearrange-the-figures-in-a-2-columns-and-2-rows-layout&#34;&gt;Create another visualization which - in the same figure panel - shows how each beech harvest over the time span is related to each of the oak, pine, spruce and colored wood harvests in a 2 by 2 grid (i.e. arrange the figures in a 2 columns and 2 rows layout).&lt;/h4&gt;
+&lt;p&gt;This time we will use base R to create the plots. First we create a
+Layout to arrange to plots in a 2x2 grid, but also add a third row for
+the legend (so technicly a 2x3 grid). For that we use the
+layout-function. Inside that function we create a matrix to create
+different cells for the layout. Because the whole last row should
+contain the legend we count from 1 to 5 and count 5 two times. We define
+the number of rows and columns of the layout and adjust the heights of
+the different rows. Then we can create the plots inside of the layout.
+At the end we add the legend to the last row.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;layout(matrix(c(1, 2, 3, 4, 5, 5), 3, 2, byrow = TRUE), heights = c(2, 2, 0.25))
+
+line_types &amp;lt;- c(&amp;quot;solid&amp;quot;, &amp;quot;dotted&amp;quot;, &amp;quot;dashed&amp;quot;, &amp;quot;dotdash&amp;quot;, &amp;quot;longdash&amp;quot;)
+
+plot(data$Year, data$Beech, type = &amp;quot;l&amp;quot;, lty = line_types[1], ylim = c(0, 2000),
+     xlab = &amp;quot;Year&amp;quot;, ylab = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), main = &amp;quot;Beech and Oak Volume Over Years&amp;quot;)
+lines(data$Year, data$Oak, lty = line_types[2])
+
+plot(data$Year, data$Beech, type = &amp;quot;l&amp;quot;, lty = line_types[1], ylim = c(0, 2000), 
+     xlab = &amp;quot;Year&amp;quot;, ylab = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), main = &amp;quot;Beech and Colored Woods Volume Over Years&amp;quot;)
+lines(data$Year, data$ColoredWoods,
+      lty = line_types[3])
+
+
+plot(data$Year, data$Beech, type = &amp;quot;l&amp;quot;, lty = line_types[1], ylim = c(0, 7000),
+     xlab = &amp;quot;Year&amp;quot;, ylab = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), main = &amp;quot;Beech and Spruce Volume Over Years&amp;quot;)
+lines(data$Year, data$Spruce, lty = line_types[4])
+
+
+plot(data$Year, data$Beech, type = &amp;quot;l&amp;quot;, lty = line_types[1], ylim = c(0, 2000),
+     xlab = &amp;quot;Year&amp;quot;, ylab = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), main = &amp;quot;Beech and Pine Volume Over Years&amp;quot;)
+lines(data$Year, data$Pine, lty = line_types[5])
+
+
+par(mar = c(0, 0, 0, 0))
+
+
+plot.new()
+legend(&amp;quot;bottom&amp;quot;, inset = c(0, -0.2), legend = c(&amp;quot;Beech&amp;quot;, &amp;quot;Oak&amp;quot;, &amp;quot;Colored Woods&amp;quot;, &amp;quot;Spruce&amp;quot;, &amp;quot;Pine&amp;quot;), 
+       bty = &amp;quot;n&amp;quot;,title = NA, 
+       lty = c(line_types[1], line_types[2], line_types[3], line_types[4], line_types[5]), 
+       horiz = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/unnamed-chunk-5-1.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;plo2&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;4-task&#34;&gt;4. Task&lt;/h3&gt;
+&lt;h4 id=&#34;include-your-opinion-on-what-could-be-the-key-message-of-these-figures-in-two-sentence-max&#34;&gt;Include your opinion on what could be the key message of these figures in two sentence max.&lt;/h4&gt;
+&lt;p&gt;The data shows a notable decrease in spruce harvest volumes in 2007, a
+result of its vulnerability to factors such as the Kyrill storm, bark
+beetle infestations, and elevated temperatures. In contrast, other nativ
+tree species did not exhibit a similar increase in harvest volume that
+year, underscoring the importance of tailoring forest management to the
+unique responses of different species to environmental stressors and climate change.&lt;/p&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
         <title>About</title>
         <link>https://demo.stack.jimmycai.com/about/</link>
         <pubDate>Thu, 09 Nov 2023 00:00:00 +0000</pubDate>

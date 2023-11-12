@@ -1,7 +1,7 @@
 ---
 title: "Assignment 03 - Data analysis"
 author: "Konstantin Engelmayer"
-date: 2023-11-14
+date: 2023-11-12
 categories: ["Data Analysis"]
 tags: ["R Markdown", "R"]
 ---
