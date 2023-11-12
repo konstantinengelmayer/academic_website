@@ -17,7 +17,7 @@ tags: ["R Markdown", "R"]
 #### Read the data provided in the Excel file and “isolate” the tabulated information into a data.frame class.
 
 First we take a look at the data: 
-![HessenHolzeinschlag](Hessen_holzeinschlag.PNG)
+![HessenHolzeinschlag](../Hessen_holzeinschlag.PNG)
 
 We need to read the data with `;` as separator and skip the first 4 and
 the last line of the .txt. Also we set year 2010 to 2014 of colored
