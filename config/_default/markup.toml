@@ -3,7 +3,7 @@
 unsafe = true
 
 [tableOfContents]
-endLevel = 4
+endLevel = 3
 ordered = true
 startLevel = 2
 
@@ -14,4 +14,4 @@ guessSyntax = true
 lineNoStart = 1
 lineNos = true
 lineNumbersInTable = true
-tabWidth = 4
+tabWidth = 3

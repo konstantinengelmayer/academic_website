@@ -1,0 +1,10 @@
+{
+ "compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+   "*": [
+    "..\\themes\\github.com\\CaiJimmy\\hugo-theme-stack\\v3\\assets\\*"
+   ]
+  }
+ }
+}
