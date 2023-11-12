@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Konstantin Engelmayer</title>
+        <link>https://demo.stack.jimmycai.com/page/</link>
+        <description>Recent content in Pages on Konstantin Engelmayer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 09 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>https://demo.stack.jimmycai.com/about/</link>
+        <pubDate>Thu, 09 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/about/</guid>
+        <description>&lt;p&gt;Welcome to my digital space. I am a student of physical geography in Marburg with a focused interest in environmental informatics. My academic and professional pursuits are rooted in the rigorous analysis and interpretation of spatial data.&lt;/p&gt;
+&lt;p&gt;My work is characterized by the development and deployment of computational tools and models to understand complex environmental systems. The programming languages and frameworks I employ —primarily R- are selected for their robustness and ability to streamline data processing while maintaining computational efficiency.&lt;/p&gt;
+&lt;p&gt;While my expertise is grounded in R programming, my projects often extend into the domains of web development, necessitating the integration of HTML and CSS within R Markdown environments. This interdisciplinary approach allows for the dissemination of scientific findings through interactive and accessible formats.&lt;/p&gt;
+&lt;p&gt;This platform serves as both a repository and showcase of my scholarly work, featuring a compilation of analytical assessments and detailed project expositions. It is a reflection of my commitment to precision, structure, and the advancement of environmental informatics.&lt;/p&gt;
+&lt;p&gt;I invite you to explore my site and engage with the content, which stands as an evolving record of my academic journey and a bridge to future innovations in the field.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://demo.stack.jimmycai.com/archives/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Links</title>
+        <link>https://demo.stack.jimmycai.com/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/links/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://demo.stack.jimmycai.com/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

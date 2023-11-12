@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>R Markdown on Konstantin Engelmayer</title>
+        <link>https://demo.stack.jimmycai.com/tags/r-markdown/</link>
+        <description>Recent content in R Markdown on Konstantin Engelmayer</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 07 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Assignment 02 - Data analysis</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-02-data-analysis/</link>
+        <pubDate>Tue, 07 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-02-data-analysis/</guid>
+        <description>&lt;hr&gt;
+&lt;h2 id=&#34;unmarked-assignment-loop-and-conquer&#34;&gt;Unmarked Assignment: Loop and Conquer&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;1-implement-an-if-then-else-statement-which-prints-larger-if-the-number-provided-as-variable-n-is-larger-than-three-and-equal-or-smaller-otherwise&#34;&gt;1. Implement an if-then-else statement which prints “larger” if the number provided as variable n is larger than three and “equal or smaller” otherwise.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){
+    print(&amp;quot;large&amp;quot;)
+  }else{
+    print(&amp;quot;equal or smaller&amp;quot;)
+  }
+}
+check_value(2)
+
+[1] &amp;quot;equal or smaller&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;2-extent-a-copy-of-the-above-statement-iecopy-the-entire-if-then-else-statement-and-include-it-a-second-time-in-your-script-in-order-to-preserve-both-versions-which-returns-equal-and-smaller-explicitly-in-addition-to-larger&#34;&gt;2. Extent a copy of the above statement (i.e. copy the entire if-then-else statement and include it a second time in your script in order to preserve both versions) which returns “equal” and “smaller” explicitly in addition to “larger”.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){
+    print(&amp;quot;large&amp;quot;)
+  }else if(n == 3){
+    print(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt;3){
+    print(&amp;quot;smaller&amp;quot;)
+  }
+}
+check_value(2)
+
+[1] &amp;quot;smaller&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;3-implement-a-if-then-else-statement-which-prints-even-if-the-number-provided-as-variable-n-is-even-and-which-prints-odd-otherwise&#34;&gt;3. Implement a if-then-else statement which prints “even” if the number provided as variable n is even and which prints “odd” otherwise.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;even_or_odd &amp;lt;- function(n){
+  if(n %% 2 == 0){
+    print(&amp;quot;even&amp;quot;)
+  }else{
+    print(&amp;quot;odd&amp;quot;)
+  }
+}
+even_or_odd(5)
+
+[1] &amp;quot;odd&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;4-copy-the-extended-largerequalsmaller-if-then-else-statement-and-include-it-into-a-for-loop-which-shows-that-all-three-options-are-actually-implemented-in-a-correct-manner-by-iterating-over-n-from-a-number-which-is-smaller-3-exactly-3-and-larger-than-3&#34;&gt;4. Copy the extended larger/equal/smaller if-then-else statement and include it into a for loop which shows that all three options are actually implemented in a correct manner by iterating over n from a number which is smaller 3, exactly 3 and larger than 3.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){
+    print(&amp;quot;large&amp;quot;)
+  }else if(n == 3){
+    print(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt;3){
+    print(&amp;quot;smaller&amp;quot;)
+  }
+}
+for(n in c(2,3,4)){
+  check_value(n)
+}
+
+[1] &amp;quot;smaller&amp;quot;
+[1] &amp;quot;equal&amp;quot;
+[1] &amp;quot;large&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;5-extent-a-copy-of-the-above-loop-and-modify-the-loop-and-if-then-else-statement-in-such-a-way-that-the-information-on-larger-etc-is-not-printed-on-the-screen-but-saved-within-a-vector-iea-variable-which-will-hold-all-three-statements-in-the-end-print-the-content-of-this-vector-after-the-loop&#34;&gt;5. Extent a copy of the above loop and modify the loop and if-then-else statement in such a way, that the information on “larger” etc. is not printed on the screen but saved within a vector (i.e. a variable which will hold all three statements in the end). Print the content of this vector after the loop.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;v1 &amp;lt;- c()
+check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){
+    print(&amp;quot;large&amp;quot;)
+  }else if(n == 3){
+    print(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt;3){
+    print(&amp;quot;smaller&amp;quot;)
+  }
+}
+for(n in c(2,3,4)){
+  v1 &amp;lt;- c(v1,check_value(n))
+}
+
+[1] &amp;quot;smaller&amp;quot;
+[1] &amp;quot;equal&amp;quot;
+[1] &amp;quot;large&amp;quot;
+
+print(v1)
+
+[1] &amp;quot;smaller&amp;quot; &amp;quot;equal&amp;quot;   &amp;quot;large&amp;quot;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;6-extent-a-copy-of-the-above-modified-loop-in-such-a-way-that-the-results-are-not-saved-in-a-vector-but-a-list-print-the-content-of-this-list-after-the-loop&#34;&gt;6. Extent a copy of the above modified loop in such a way, that the results are not saved in a vector but a list. Print the content of this list after the loop.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;l1 &amp;lt;- list()
+check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){
+    print(&amp;quot;large&amp;quot;)
+  }else if(n == 3){
+    print(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt;3){
+    print(&amp;quot;smaller&amp;quot;)
+  }
+}
+for(n in c(2,3,4)){
+  l1[length(l1) + 1] &amp;lt;- check_value(n)
+}
+
+[1] &amp;quot;smaller&amp;quot;
+[1] &amp;quot;equal&amp;quot;
+[1] &amp;quot;large&amp;quot;
+
+print(l1)
+
+[[1]]
+[1] &amp;quot;smaller&amp;quot;
+
+[[2]]
+[1] &amp;quot;equal&amp;quot;
+
+[[3]]
+[1] &amp;quot;large&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;7-change-the-above-modified-loop-in-such-a-way-that-the-iteration-is-controlled-by-a-lapply-not-by-a-for-loop-save-the-returning-information-from-the-lapply-function-in-a-variable-and-print-the-content-of-this-variable-after-the-loop&#34;&gt;7. Change the above modified loop in such a way, that the iteration is controlled by a lapply not by a for-loop. Save the returning information from the lapply function in a variable and print the content of this variable after the loop.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;l1 &amp;lt;- list()
+check_value &amp;lt;- function(n){
+  if(n &amp;gt;3){# testesttest
+    print(&amp;quot;large&amp;quot;)
+  }else if(n == 3){
+    print(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt;3){
+    print(&amp;quot;smaller&amp;quot;)
+  }
+}
+values &amp;lt;- c(2,3,4)
+result &amp;lt;- lapply(values, check_value)
+
+[1] &amp;quot;smaller&amp;quot;
+[1] &amp;quot;equal&amp;quot;
+[1] &amp;quot;large&amp;quot;
+
+print(result)
+
+[[1]]
+[1] &amp;quot;smaller&amp;quot;
+
+[[2]]
+[1] &amp;quot;equal&amp;quot;
+
+[[3]]
+[1] &amp;quot;large&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;8-finally-change-the-above-variable-iedo-not-modify-the-loop-anymore-but-just-include-one-more-line-in-such-a-way-that-the-content-is-not-printed-as-a-nested-list-but-a-vector-ieflatten-the-list&#34;&gt;8. Finally change the above variable (i.e. do not modify the loop anymore but just include one more line) in such a way that the content is not printed as a nested list but a vector (i.e. flatten the list).&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;check_value &amp;lt;- function(n){
+  if(n &amp;gt; 3){
+    return(&amp;quot;larger&amp;quot;)
+  }else if(n == 3){
+    return(&amp;quot;equal&amp;quot;)
+  }else if(n &amp;lt; 3){
+    return(&amp;quot;smaller&amp;quot;)
+  }
+}
+values &amp;lt;- c(2,3,4)
+result &amp;lt;- lapply(values, check_value)
+result &amp;lt;- unlist(result)
+print(result)
+
+[1] &amp;quot;smaller&amp;quot; &amp;quot;equal&amp;quot;   &amp;quot;larger&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
+        <title>Assignment 01 - Data analysis</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-01-data-analysis/</link>
+        <pubDate>Tue, 31 Oct 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-01-data-analysis/</guid>
+        <description>&lt;h2 id=&#34;marked-assignment-hello-r-hello-github&#34;&gt;Marked Assignment: Hello R, Hello GitHub&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;1-assign-the-value-of-five-to-a-variable-called-a-and-the-value-of-two-to-a-variable-called-b&#34;&gt;1. Assign the value of five to a variable called &lt;code&gt;a&lt;/code&gt; and the value of two to a variable called &lt;code&gt;b&lt;/code&gt;.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;a &amp;lt;- 5
+b &amp;lt;- 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;2-compute-the-sum-difference-product-and-ratio-of-a-and-b-a-always-in-the-first-place-and-store-the-results-to-four-different-variables-called-r1-r2-r3-and-r4&#34;&gt;2. Compute the sum, difference, product and ratio of a and b (a always in the first place) and store the results to four different variables called &lt;code&gt;r1&lt;/code&gt;, &lt;code&gt;r2&lt;/code&gt;, &lt;code&gt;r3&lt;/code&gt;, and &lt;code&gt;r4&lt;/code&gt;.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;r1 &amp;lt;- a+b
+r2 &amp;lt;- a-b
+r3 &amp;lt;- a*b
+r4 &amp;lt;- a/b
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;3-create-a-vector-v1-which-contains-the-values-stored-within-the-four-variables-from-step-2&#34;&gt;3. Create a vector &lt;code&gt;v1&lt;/code&gt; which contains the values stored within the four variables from step 2.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;v1 &amp;lt;- c(r1,r2,r3,r4)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;4-add-a-fifth-entry-to-vector-v1-which-represents-a-by-the-power-of-b-ieab&#34;&gt;4. Add a fifth entry to vector &lt;code&gt;v1&lt;/code&gt; which represents &lt;code&gt;a&lt;/code&gt; by the power of &lt;code&gt;b&lt;/code&gt; (i.e. &lt;code&gt;a**b&lt;/code&gt;).&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;v1 &amp;lt;- c(v1,a**b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;5-show-the-content-of-vector-v1-eguse-the-print-function-or-just-type-the-variable-name-in-a-separate-row&#34;&gt;5. Show the content of vector &lt;code&gt;v1&lt;/code&gt; (e.g. use the &lt;code&gt;print&lt;/code&gt; function or just type the variable name in a separate row).&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;print(v1)
+
+## [1]  7.0  3.0 10.0  2.5 25.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;6-create-a-second-vector-v2-which-contains-information-on-the-type-of-mathematical-operation-used-to-derive-the-five-results-hence-this-vector-should-have-five-entries-of-values-sum-difference&#34;&gt;6. Create a second vector &lt;code&gt;v2&lt;/code&gt; which contains information on the type of mathematical operation used to derive the five results. Hence this vector should have five entries of values &lt;em&gt;sum, difference&lt;/em&gt;,…&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;v2 &amp;lt;- c(&amp;quot;sum&amp;quot;, &amp;quot;difference&amp;quot;, &amp;quot;product&amp;quot;, &amp;quot;ratio&amp;quot;, &amp;quot;exponentiation&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;7-show-the-content-of-vector-v2&#34;&gt;7. Show the content of vector &lt;code&gt;v2&lt;/code&gt;.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;print(v2)
+
+## [1] &amp;quot;sum&amp;quot;            &amp;quot;difference&amp;quot;     &amp;quot;product&amp;quot;        &amp;quot;ratio&amp;quot;          &amp;quot;exponentiation&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;8-combine-the-two-vectors-v1-and-v2-into-a-data-frame-called-df-each-vector-should-become-one-column-of-the-data-frame-so-you-will-end-up-with-a-data-frame-having-5-rows-and-2-columns&#34;&gt;8. Combine the two vectors &lt;code&gt;v1&lt;/code&gt; and &lt;code&gt;v2&lt;/code&gt; into a data frame called &lt;code&gt;df&lt;/code&gt;. Each vector should become one column of the data frame so you will end up with a data frame having 5 rows and 2 columns.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;df &amp;lt;- data.frame(v1,v2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;9-make-sure-that-the-column-with-the-data-of-v1-is-named-results-and-v2-is-named-operation&#34;&gt;9. Make sure that the column with the data of &lt;code&gt;v1&lt;/code&gt; is named Results and &lt;code&gt;v2&lt;/code&gt; is named Operation.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;colnames(df) &amp;lt;- c(&amp;quot;Results&amp;quot;, &amp;quot;Operation&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;10-show-the-entire-content-of-df&#34;&gt;10. Show the entire content of &lt;code&gt;df&lt;/code&gt;.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;print(df)
+
+##   Results      Operation
+## 1     7.0            sum
+## 2     3.0     difference
+## 3    10.0        product
+## 4     2.5          ratio
+## 5    25.0 exponentiation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;11-show-just-the-entry-of-the-cell-in-the-second-row-and-first-column&#34;&gt;11. Show just the entry of the cell in the second row and first column.&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;print(df[2,1])
+
+## [1] 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
