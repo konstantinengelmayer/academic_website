@@ -18,14 +18,18 @@
 &lt;h3 id=&#34;1-task&#34;&gt;1. Task&lt;/h3&gt;
 &lt;h4 id=&#34;read-the-data-provided-in-the-excel-file-and-isolate-the-tabulated-information-into-a-dataframe-class&#34;&gt;Read the data provided in the Excel file and “isolate” the tabulated information into a data.frame class.&lt;/h4&gt;
 &lt;p&gt;First we take a look at the data:
-&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/Hessen_holzeinschlag.PNG&#34;
-	
-	
-	
+&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/Hessen_holzeinschlag.PNG&#34;
+	width=&#34;1018&#34;
+	height=&#34;547&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/Hessen_holzeinschlag_hue53a5778251d899c341d9e4ded20eb5e_36748_480x0_resize_box_3.PNG 480w, https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/Hessen_holzeinschlag_hue53a5778251d899c341d9e4ded20eb5e_36748_1024x0_resize_box_3.PNG 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;HessenHolzeinschlag&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;446px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;We need to read the data with &lt;code&gt;;&lt;/code&gt; as separator and skip the first 4 and
@@ -95,14 +99,18 @@ ggplot(data_long, aes(x = TreeType, y = Volume, group = TreeType)) +
   labs(x = &amp;quot;Tree Type&amp;quot;, y = expression(Volume~&amp;quot;[1000&amp;quot;~m^3~&amp;quot;]&amp;quot;), 
        title = &amp;quot;Boxplot of Volume by Tree Type in 1000 cubic meter&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/unnamed-chunk-4-1.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-4-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-4-1_hu5442636b1c46059e1aa4e34b8c04de0f_7171_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-4-1_hu5442636b1c46059e1aa4e34b8c04de0f_7171_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Plot1&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;hr&gt;
@@ -150,14 +158,18 @@ legend(&amp;quot;bottom&amp;quot;, inset = c(0, -0.2), legend = c(&amp;quot;Beec
        lty = c(line_types[1], line_types[2], line_types[3], line_types[4], line_types[5]), 
        horiz = TRUE)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/../../../static/assignment_03_data_analysis/unnamed-chunk-5-1.png&#34;
-	
-	
-	
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-5-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-5-1_hufe1403fcd70b4bdebdb2987e3e41003d_8820_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-5-1_hufe1403fcd70b4bdebdb2987e3e41003d_8820_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;plo2&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;hr&gt;
