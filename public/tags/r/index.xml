@@ -7,6 +7,103 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/tags/r/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Assignment 01-03 - GeoAI</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/</link>
+        <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/</guid>
+        <description>&lt;hr&gt;
+&lt;h2 id=&#34;warm-up-spatial&#34;&gt;Warm up spatial&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;This is a follow-along exercise to get familiar with handling spatial
+data in R. First we read our geoAI_setup file to get our directories
+and load our packages&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;source(&amp;quot;geoAI_setup.R&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we read our raster excerpt with the rast-function of the terra
+package.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We download building data from open street map and get the polygons.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%
+  osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%
+  osmdata::osmdata_sf()
+
+buildings &amp;lt;- buildings$osm_polygons
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We check the if the projections are the same and transform them to
+match.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;terra::same.crs(dop,buildings)
+
+## [1] FALSE
+
+buildings &amp;lt;- sf::st_transform(buildings, terra::crs(dop))
+
+terra::same.crs(dop,buildings)
+
+## [1] TRUE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can take a look at the raster.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;terra::plotRGB(dop)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-5-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Plot1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;We can calculate different indices with the given bands.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Extract individual bands from the DOP for further analysis
+red &amp;lt;- dop[[1]]
+green &amp;lt;- dop[[2]]
+blue &amp;lt;- dop[[3]]
+
+# Calculate the Normalized Difference Turbidity Index (NDTI)
+NDTI &amp;lt;- (red -green) / (red + green)
+names(NDTI) &amp;lt;- &amp;quot;NDTI&amp;quot;
+
+# Calculate the Visible Atmospherically Resistant Index (VARI)
+VARI &amp;lt;- (green - red) / (green + red - blue)
+names(VARI) &amp;lt;- &amp;quot;VARI&amp;quot;
+
+# Calculate the Triangular Greenness Index (TGI)
+TGI &amp;lt;- -0.5 * (190 * (red - green) - 120 * (red - blue))
+names(TGI) &amp;lt;- &amp;quot;TGI&amp;quot;
+
+# Combine the indices into a single stack for plotting
+rgbI &amp;lt;- c(NDTI, VARI, TGI)
+terra::plot(rgbI)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-6-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Plot2&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Lastly we can combine the original raster with the newly calculated
+indicies into object and save it.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dop_indices &amp;lt;- c(dop, rgbI)
+saveRDS(dop_indices, file.path(envrmt$path_data, &amp;quot;dop_indices.RDS&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        <item>
         <title>Assignment 03 - Data analysis</title>
         <link>https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/</link>
         <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
@@ -164,7 +261,7 @@ legend(&amp;quot;bottom&amp;quot;, inset = c(0, -0.2), legend = c(&amp;quot;Beec
 	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-5-1_hufe1403fcd70b4bdebdb2987e3e41003d_8820_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-03-data-analysis/unnamed-chunk-5-1_hufe1403fcd70b4bdebdb2987e3e41003d_8820_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;plo2&#34;
+		alt=&#34;Plot2&#34;
 	
 	
 		class=&#34;gallery-image&#34; 

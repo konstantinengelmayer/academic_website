@@ -143,7 +143,7 @@ At the end we add the legend to the last row.
            lty = c(line_types[1], line_types[2], line_types[3], line_types[4], line_types[5]), 
            horiz = TRUE)
 
-![plo2](unnamed-chunk-5-1.png)
+![Plot2](unnamed-chunk-5-1.png)
 
 ------------------------------------------------------------------------
 

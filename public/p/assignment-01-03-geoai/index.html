@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Marked Assignment: Hello R, Hello GitHub 1. Assign the value of five to a variable called a and the value of two to a variable called b. a &amp;lt;- 5b &amp;lt;- 22. Compute the sum, difference, product and ratio of a and b (a always in the first place) and store the results to four different variables called r1, r2, r3, and r4. r1 &amp;lt;- a&#43;br2 &amp;lt;- a-br3 &amp;lt;- a*br4 &amp;lt;- a/b3.'>
-<title>Assignment 01 - Data analysis</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
+source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
+dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
+buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
+<title>Assignment 01-03 - GeoAI</title>
 
-<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-01-data-analysis/'>
+<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 01 - Data analysis'>
-<meta property='og:description' content='Marked Assignment: Hello R, Hello GitHub 1. Assign the value of five to a variable called a and the value of two to a variable called b. a &amp;lt;- 5b &amp;lt;- 22. Compute the sum, difference, product and ratio of a and b (a always in the first place) and store the results to four different variables called r1, r2, r3, and r4. r1 &amp;lt;- a&#43;br2 &amp;lt;- a-br3 &amp;lt;- a*br4 &amp;lt;- a/b3.'>
-<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-01-data-analysis/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 01-03 - GeoAI'>
+<meta property='og:description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
+source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
+dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
+buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
+<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
 <meta property='og:site_name' content='Konstantin Engelmayer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-10-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-10-31T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Assignment 01 - Data analysis">
-<meta name="twitter:description" content="Marked Assignment: Hello R, Hello GitHub 1. Assign the value of five to a variable called a and the value of two to a variable called b. a &amp;lt;- 5b &amp;lt;- 22. Compute the sum, difference, product and ratio of a and b (a always in the first place) and store the results to four different variables called r1, r2, r3, and r4. r1 &amp;lt;- a&#43;br2 &amp;lt;- a-br3 &amp;lt;- a*br4 &amp;lt;- a/b3.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-12T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Assignment 01-03 - GeoAI">
+<meta name="twitter:description" content="Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
+source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
+dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
+buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -244,11 +253,7 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#marked-assignment-hello-r-hello-github">Marked Assignment: Hello R, Hello GitHub</a>
-      <ol>
-        <li></li>
-      </ol>
-    </li>
+    <li><a href="#warm-up-spatial">Warm up spatial</a></li>
   </ol>
 </nav>
         </div>
@@ -267,8 +272,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/data-analysis/" >
-                Data Analysis
+            <a href="/categories/geoai/" >
+                GeoAI
             </a>
         
     </header>
@@ -276,7 +281,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/assignment-01-data-analysis/">Assignment 01 - Data analysis</a>
+            <a href="/p/assignment-01-03-geoai/">Assignment 01-03 - GeoAI</a>
         </h2>
     
         
@@ -298,7 +303,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 31, 2023</time>
+                <time class="article-time--published">Nov 12, 2023</time>
             </div>
         
 
@@ -314,69 +319,95 @@
     <section class="article-content">
     
     
-    <h2 id="marked-assignment-hello-r-hello-github">Marked Assignment: Hello R, Hello GitHub</h2>
+    <hr>
+<h2 id="warm-up-spatial">Warm up spatial</h2>
 <hr>
-<h4 id="1-assign-the-value-of-five-to-a-variable-called-a-and-the-value-of-two-to-a-variable-called-b">1. Assign the value of five to a variable called <code>a</code> and the value of two to a variable called <code>b</code>.</h4>
-<pre><code>a &lt;- 5
-b &lt;- 2
+<p>This is a follow-along exercise to get familiar with handling spatial
+data in R. First we read our geoAI_setup file to get our directories
+and load our packages</p>
+<pre><code>source(&quot;geoAI_setup.R&quot;)
 </code></pre>
-<hr>
-<h4 id="2-compute-the-sum-difference-product-and-ratio-of-a-and-b-a-always-in-the-first-place-and-store-the-results-to-four-different-variables-called-r1-r2-r3-and-r4">2. Compute the sum, difference, product and ratio of a and b (a always in the first place) and store the results to four different variables called <code>r1</code>, <code>r2</code>, <code>r3</code>, and <code>r4</code>.</h4>
-<pre><code>r1 &lt;- a+b
-r2 &lt;- a-b
-r3 &lt;- a*b
-r4 &lt;- a/b
+<p>Now we read our raster excerpt with the rast-function of the terra
+package.</p>
+<pre><code>dop &lt;- terra::rast(paste0(envrmt$path_data_level1,&quot;/marburg_dop_excerpt.tif&quot;))
 </code></pre>
-<hr>
-<h4 id="3-create-a-vector-v1-which-contains-the-values-stored-within-the-four-variables-from-step-2">3. Create a vector <code>v1</code> which contains the values stored within the four variables from step 2.</h4>
-<pre><code>v1 &lt;- c(r1,r2,r3,r4)
-</code></pre>
-<hr>
-<h4 id="4-add-a-fifth-entry-to-vector-v1-which-represents-a-by-the-power-of-b-ieab">4. Add a fifth entry to vector <code>v1</code> which represents <code>a</code> by the power of <code>b</code> (i.e. <code>a**b</code>).</h4>
-<pre><code>v1 &lt;- c(v1,a**b)
-</code></pre>
-<hr>
-<h4 id="5-show-the-content-of-vector-v1-eguse-the-print-function-or-just-type-the-variable-name-in-a-separate-row">5. Show the content of vector <code>v1</code> (e.g. use the <code>print</code> function or just type the variable name in a separate row).</h4>
-<pre><code>print(v1)
+<p>We download building data from open street map and get the polygons.</p>
+<pre><code>buildings &lt;- osmdata::opq(bbox = &quot;marburg de&quot;) %&gt;%
+  osmdata::add_osm_feature(key = &quot;building&quot;) %&gt;%
+  osmdata::osmdata_sf()
 
-## [1]  7.0  3.0 10.0  2.5 25.0
+buildings &lt;- buildings$osm_polygons
 </code></pre>
-<hr>
-<h4 id="6-create-a-second-vector-v2-which-contains-information-on-the-type-of-mathematical-operation-used-to-derive-the-five-results-hence-this-vector-should-have-five-entries-of-values-sum-difference">6. Create a second vector <code>v2</code> which contains information on the type of mathematical operation used to derive the five results. Hence this vector should have five entries of values <em>sum, difference</em>,…</h4>
-<pre><code>v2 &lt;- c(&quot;sum&quot;, &quot;difference&quot;, &quot;product&quot;, &quot;ratio&quot;, &quot;exponentiation&quot;)
-</code></pre>
-<hr>
-<h4 id="7-show-the-content-of-vector-v2">7. Show the content of vector <code>v2</code>.</h4>
-<pre><code>print(v2)
+<p>We check the if the projections are the same and transform them to
+match.</p>
+<pre><code>terra::same.crs(dop,buildings)
 
-## [1] &quot;sum&quot;            &quot;difference&quot;     &quot;product&quot;        &quot;ratio&quot;          &quot;exponentiation&quot;
-</code></pre>
-<hr>
-<h4 id="8-combine-the-two-vectors-v1-and-v2-into-a-data-frame-called-df-each-vector-should-become-one-column-of-the-data-frame-so-you-will-end-up-with-a-data-frame-having-5-rows-and-2-columns">8. Combine the two vectors <code>v1</code> and <code>v2</code> into a data frame called <code>df</code>. Each vector should become one column of the data frame so you will end up with a data frame having 5 rows and 2 columns.</h4>
-<pre><code>df &lt;- data.frame(v1,v2)
-</code></pre>
-<hr>
-<h4 id="9-make-sure-that-the-column-with-the-data-of-v1-is-named-results-and-v2-is-named-operation">9. Make sure that the column with the data of <code>v1</code> is named Results and <code>v2</code> is named Operation.</h4>
-<pre><code>colnames(df) &lt;- c(&quot;Results&quot;, &quot;Operation&quot;)
-</code></pre>
-<hr>
-<h4 id="10-show-the-entire-content-of-df">10. Show the entire content of <code>df</code>.</h4>
-<pre><code>print(df)
+## [1] FALSE
 
-##   Results      Operation
-## 1     7.0            sum
-## 2     3.0     difference
-## 3    10.0        product
-## 4     2.5          ratio
-## 5    25.0 exponentiation
-</code></pre>
-<hr>
-<h4 id="11-show-just-the-entry-of-the-cell-in-the-second-row-and-first-column">11. Show just the entry of the cell in the second row and first column.</h4>
-<pre><code>print(df[2,1])
+buildings &lt;- sf::st_transform(buildings, terra::crs(dop))
 
-## [1] 3
+terra::same.crs(dop,buildings)
+
+## [1] TRUE
 </code></pre>
-<hr>
+<p>Now we can take a look at the raster.</p>
+<pre><code>terra::plotRGB(dop)
+</code></pre>
+<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-5-1.png"
+	width="672"
+	height="480"
+	srcset="/p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Plot1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p>We can calculate different indices with the given bands.</p>
+<pre><code># Extract individual bands from the DOP for further analysis
+red &lt;- dop[[1]]
+green &lt;- dop[[2]]
+blue &lt;- dop[[3]]
+
+# Calculate the Normalized Difference Turbidity Index (NDTI)
+NDTI &lt;- (red -green) / (red + green)
+names(NDTI) &lt;- &quot;NDTI&quot;
+
+# Calculate the Visible Atmospherically Resistant Index (VARI)
+VARI &lt;- (green - red) / (green + red - blue)
+names(VARI) &lt;- &quot;VARI&quot;
+
+# Calculate the Triangular Greenness Index (TGI)
+TGI &lt;- -0.5 * (190 * (red - green) - 120 * (red - blue))
+names(TGI) &lt;- &quot;TGI&quot;
+
+# Combine the indices into a single stack for plotting
+rgbI &lt;- c(NDTI, VARI, TGI)
+terra::plot(rgbI)
+</code></pre>
+<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-6-1.png"
+	width="672"
+	height="480"
+	srcset="/p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Plot2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p>Lastly we can combine the original raster with the newly calculated
+indicies into object and save it.</p>
+<pre><code>dop_indices &lt;- c(dop, rgbI)
+saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
+</code></pre>
 
 </section>
 
@@ -447,12 +478,12 @@ r4 &lt;- a/b
             
                 
 <article class="">
-    <a href="/p/assignment-01-03-geoai/">
+    <a href="/p/assignment-01-data-analysis/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Assignment 01-03 - GeoAI</h2>
+            <h2 class="article-title">Assignment 01 - Data analysis</h2>
         </div>
     </a>
 </article>
