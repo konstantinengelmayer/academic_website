@@ -6,7 +6,131 @@
         <description>Recent content in Posts on Konstantin Engelmayer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 13 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Assignment 04 - Data analysis</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/</link>
+        <pubDate>Mon, 13 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/</guid>
+        <description>&lt;hr&gt;
+&lt;h2 id=&#34;unmarked-assignment-cleaning-crops&#34;&gt;Unmarked Assignment: Cleaning Crops&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;In this assignment we read and clean our data to prepare it for data
+analysis. First we take a look at the data:
+&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte.PNG&#34;
+	width=&#34;1017&#34;
+	height=&#34;545&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_480x0_resize_box_3.PNG 480w, https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_1024x0_resize_box_3.PNG 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Feldfruechte&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;447px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-problems-to-solve&#34;&gt;1. Problems to solve&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Skip first 6 and last 5 row of the file&lt;/li&gt;
+&lt;li&gt;Set right encoding to read Umlaute properly&lt;/li&gt;
+&lt;li&gt;Read file with the first 3 column names missing&lt;/li&gt;
+&lt;li&gt;Convert the missing values (“_” and “.” and “/”) to NA&lt;/li&gt;
+&lt;li&gt;Divide column 3 into 3 different columns&lt;/li&gt;
+&lt;li&gt;Fill up the 3 different columns with missing information like “Land”
+and “Landkreis”&lt;/li&gt;
+&lt;li&gt;Set a new order of the columns and sort the data frame by id and
+year&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-problem-solving&#34;&gt;2. Problem solving&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;data &amp;lt;- read.csv2(file = &amp;quot;../../data/115-46-4_feldfruechte.txt&amp;quot;, header = TRUE, nrows = 8925, na.strings = c(&amp;quot;.&amp;quot; , &amp;quot;-&amp;quot;, &amp;quot;/&amp;quot;), skip = 6, check.names = FALSE, encoding = &#39;latin1&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;read.csv2() reads files with following default settings (e.g
+seperator = “,”, dec = “,”)&lt;/li&gt;
+&lt;li&gt;skip = 6 skips the first 6 rows&lt;/li&gt;
+&lt;li&gt;na.strings = c(“.”, “-”, “/”) repleaces missing values with NA´s&lt;/li&gt;
+&lt;li&gt;check.names = FALSE disables the checking of the column names so it
+doesn´t produces an error with 3 missing column names&lt;/li&gt;
+&lt;li&gt;encoding = ‘latin1’ allows Umlaute&lt;/li&gt;
+&lt;li&gt;nrow = 8925 ignores the last 5 rows&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;pre&gt;&lt;code&gt;colnames(data)[1:3] &amp;lt;- c(&amp;quot;Jahr&amp;quot;, &amp;quot;ID&amp;quot;, &amp;quot;Ort&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;adds column names for the first 3 columns&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;pre&gt;&lt;code&gt;source(&amp;quot;functions.R&amp;quot;)
+data$Administrative_Einheit &amp;lt;- NA
+data$Administrative_Besonderheit &amp;lt;- NA
+data &amp;lt;- cleaning_administrativ_area(data, data$Ort)
+data &amp;lt;- data[,c(2,1,3,14,15,4,5,6,7,8,9,10,11,12,13)]
+data &amp;lt;- data[order(data$ID,data$Jahr), ]
+rownames(data) &amp;lt;- 1:nrow(data)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;reads r-script of the cleaning_administrative_are()-function i
+created&lt;/li&gt;
+&lt;li&gt;creates new columns for administrative variables&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cleaning_administrative_area()&lt;/code&gt; seperates the “Ort”- column into 3
+columns&lt;/li&gt;
+&lt;li&gt;sort and order the dataframe&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;
+&lt;summary&gt;
+Click here to view the code for the
+&lt;code&gt;cleaning\_administrative\_area()&lt;/code&gt; -function
+&lt;/summary&gt;
+&lt;pre&gt;&lt;code&gt;# Define a function to clean administrative area data in a dataframe
+cleaning_administrativ_area &amp;lt;- function(dataframe, column){
+  
+  # Split the specified column on commas
+  split_data &amp;lt;- strsplit(column, &amp;quot;,&amp;quot;)
+  
+  # Extract the first, second, and third elements from each split string
+  one &amp;lt;- sapply(split_data, function(x) x[1])
+  two &amp;lt;- sapply(split_data, function(x) x[2])
+  three &amp;lt;- sapply(split_data, function(x) x[3])
+  
+  # Create a new data frame from the extracted elements
+  df &amp;lt;- data.frame(one = one, two = two, three = three)
+  
+  # Identify rows where the third column is not NA for swapping
+  swap_idx &amp;lt;- !is.na(df$three)
+  
+  # Perform the swap of &#39;two&#39; and &#39;three&#39; where the third column is not NA
+  temp &amp;lt;- df$two[swap_idx]
+  df$two[swap_idx] &amp;lt;- df$three[swap_idx]
+  df$three[swap_idx] &amp;lt;- temp
+  
+  # Fill missing values in &#39;two&#39; based on how far the place is idented
+  df$two[is.na(df$two) &amp;amp; regexpr(&amp;quot;\\S&amp;quot;, df$one)==1] &amp;lt;- &amp;quot;Land&amp;quot;
+  df$two[is.na(df$two) &amp;amp; regexpr(&amp;quot;\\S&amp;quot;, df$one)==3] &amp;lt;- &amp;quot;Bundesland&amp;quot;
+  df$two[is.na(df$two) &amp;amp; regexpr(&amp;quot;\\S&amp;quot;, df$one)==7] &amp;lt;- &amp;quot;Landkreis&amp;quot;
+  
+  # Trim leading whitespace from &#39;one&#39;, &#39;two&#39;, and &#39;three&#39;
+  df$one &amp;lt;- sub(&amp;quot;^\\s+&amp;quot;, &amp;quot;&amp;quot;, df$one)
+  df$two &amp;lt;- sub(&amp;quot;^\\s+&amp;quot;, &amp;quot;&amp;quot;, df$two)
+  df$three &amp;lt;- sub(&amp;quot;^\\s+&amp;quot;, &amp;quot;&amp;quot;, df$three)
+  
+  # Update the original dataframe with the new columns
+  dataframe$Ort &amp;lt;- df$one
+  dataframe$Administrative_Einheit &amp;lt;- df$two
+  dataframe$Administrative_Besonderheit &amp;lt;- df$three
+  
+  # Return the modified dataframe
+  return(dataframe)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
         <title>Assignment 01-03 - GeoAI</title>
         <link>https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/</link>
         <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>

@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
-<title>Assignment 01-03 - GeoAI</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
+<title>Assignment 04 - Data analysis</title>
 
-<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
+<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 01-03 - GeoAI'>
-<meta property='og:description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
-<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 04 - Data analysis'>
+<meta property='og:description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
+<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/'>
 <meta property='og:site_name' content='Konstantin Engelmayer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-12T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Assignment 01-03 - GeoAI">
-<meta name="twitter:description" content="Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Assignment 04 - Data analysis">
+<meta name="twitter:description" content="Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -253,7 +244,12 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#warm-up-spatial">Warm up spatial</a></li>
+    <li><a href="#unmarked-assignment-cleaning-crops">Unmarked Assignment: Cleaning Crops</a>
+      <ol>
+        <li><a href="#1-problems-to-solve">1. Problems to solve</a></li>
+        <li><a href="#2-problem-solving">2. Problem solving</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -272,8 +268,8 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
     
     <header class="article-category">
         
-            <a href="/categories/geoai/" >
-                GeoAI
+            <a href="/categories/data-analysis/" >
+                Data Analysis
             </a>
         
     </header>
@@ -281,7 +277,7 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/assignment-01-03-geoai/">Assignment 01-03 - GeoAI</a>
+            <a href="/p/assignment-04-data-analysis/">Assignment 04 - Data analysis</a>
         </h2>
     
         
@@ -303,7 +299,7 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 12, 2023</time>
+                <time class="article-time--published">Nov 13, 2023</time>
             </div>
         
 
@@ -320,94 +316,121 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
     
     
     <hr>
-<h2 id="warm-up-spatial">Warm up spatial</h2>
+<h2 id="unmarked-assignment-cleaning-crops">Unmarked Assignment: Cleaning Crops</h2>
 <hr>
-<p>This is a follow-along exercise to get familiar with handling spatial
-data in R. First we read our geoAI_setup file to get our directories
-and load our packages</p>
-<pre><code>source(&quot;geoAI_setup.R&quot;)
-</code></pre>
-<p>Now we read our raster excerpt with the rast-function of the terra
-package.</p>
-<pre><code>dop &lt;- terra::rast(paste0(envrmt$path_data_level1,&quot;/marburg_dop_excerpt.tif&quot;))
-</code></pre>
-<p>We download building data from open street map and get the polygons.</p>
-<pre><code>buildings &lt;- osmdata::opq(bbox = &quot;marburg de&quot;) %&gt;%
-  osmdata::add_osm_feature(key = &quot;building&quot;) %&gt;%
-  osmdata::osmdata_sf()
-
-buildings &lt;- buildings$osm_polygons
-</code></pre>
-<p>We check the if the projections are the same and transform them to
-match.</p>
-<pre><code>terra::same.crs(dop,buildings)
-
-## [1] FALSE
-
-buildings &lt;- sf::st_transform(buildings, terra::crs(dop))
-
-terra::same.crs(dop,buildings)
-
-## [1] TRUE
-</code></pre>
-<p>Now we can take a look at the raster.</p>
-<pre><code>terra::plotRGB(dop)
-</code></pre>
-<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-5-1.png"
-	width="672"
-	height="480"
-	srcset="/p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_1024x0_resize_box_3.png 1024w"
+<p>In this assignment we read and clean our data to prepare it for data
+analysis. First we take a look at the data:
+<img src="/p/assignment-04-data-analysis/feldfruechte.PNG"
+	width="1017"
+	height="545"
+	srcset="/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_480x0_resize_box_3.PNG 480w, /p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_1024x0_resize_box_3.PNG 1024w"
 	loading="lazy"
 	
-		alt="Plot1"
+		alt="Feldfruechte"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
+		data-flex-grow="186"
+		data-flex-basis="447px"
 	
 ></p>
-<p>We can calculate different indices with the given bands.</p>
-<pre><code># Extract individual bands from the DOP for further analysis
-red &lt;- dop[[1]]
-green &lt;- dop[[2]]
-blue &lt;- dop[[3]]
-
-# Calculate the Normalized Difference Turbidity Index (NDTI)
-NDTI &lt;- (red -green) / (red + green)
-names(NDTI) &lt;- &quot;NDTI&quot;
-
-# Calculate the Visible Atmospherically Resistant Index (VARI)
-VARI &lt;- (green - red) / (green + red - blue)
-names(VARI) &lt;- &quot;VARI&quot;
-
-# Calculate the Triangular Greenness Index (TGI)
-TGI &lt;- -0.5 * (190 * (red - green) - 120 * (red - blue))
-names(TGI) &lt;- &quot;TGI&quot;
-
-# Combine the indices into a single stack for plotting
-rgbI &lt;- c(NDTI, VARI, TGI)
-terra::plot(rgbI)
+<h3 id="1-problems-to-solve">1. Problems to solve</h3>
+<ol>
+<li>Skip first 6 and last 5 row of the file</li>
+<li>Set right encoding to read Umlaute properly</li>
+<li>Read file with the first 3 column names missing</li>
+<li>Convert the missing values (“_” and “.” and “/”) to NA</li>
+<li>Divide column 3 into 3 different columns</li>
+<li>Fill up the 3 different columns with missing information like “Land”
+and “Landkreis”</li>
+<li>Set a new order of the columns and sort the data frame by id and
+year</li>
+</ol>
+<hr>
+<h3 id="2-problem-solving">2. Problem solving</h3>
+<pre><code>data &lt;- read.csv2(file = &quot;../../data/115-46-4_feldfruechte.txt&quot;, header = TRUE, nrows = 8925, na.strings = c(&quot;.&quot; , &quot;-&quot;, &quot;/&quot;), skip = 6, check.names = FALSE, encoding = 'latin1')
 </code></pre>
-<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-6-1.png"
-	width="672"
-	height="480"
-	srcset="/p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-		alt="Plot2"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
-	
-></p>
-<p>Lastly we can combine the original raster with the newly calculated
-indicies into object and save it.</p>
-<pre><code>dop_indices &lt;- c(dop, rgbI)
-saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
+<ul>
+<li>read.csv2() reads files with following default settings (e.g
+seperator = “,”, dec = “,”)</li>
+<li>skip = 6 skips the first 6 rows</li>
+<li>na.strings = c(“.”, “-”, “/”) repleaces missing values with NA´s</li>
+<li>check.names = FALSE disables the checking of the column names so it
+doesn´t produces an error with 3 missing column names</li>
+<li>encoding = ‘latin1’ allows Umlaute</li>
+<li>nrow = 8925 ignores the last 5 rows</li>
+</ul>
+<hr>
+<pre><code>colnames(data)[1:3] &lt;- c(&quot;Jahr&quot;, &quot;ID&quot;, &quot;Ort&quot;)
 </code></pre>
+<ul>
+<li>adds column names for the first 3 columns</li>
+</ul>
+<hr>
+<pre><code>source(&quot;functions.R&quot;)
+data$Administrative_Einheit &lt;- NA
+data$Administrative_Besonderheit &lt;- NA
+data &lt;- cleaning_administrativ_area(data, data$Ort)
+data &lt;- data[,c(2,1,3,14,15,4,5,6,7,8,9,10,11,12,13)]
+data &lt;- data[order(data$ID,data$Jahr), ]
+rownames(data) &lt;- 1:nrow(data)
+</code></pre>
+<ul>
+<li>reads r-script of the cleaning_administrative_are()-function i
+created</li>
+<li>creates new columns for administrative variables</li>
+<li><code>cleaning_administrative_area()</code> seperates the “Ort”- column into 3
+columns</li>
+<li>sort and order the dataframe</li>
+</ul>
+<details>
+<summary>
+Click here to view the code for the
+<code>cleaning\_administrative\_area()</code> -function
+</summary>
+<pre><code># Define a function to clean administrative area data in a dataframe
+cleaning_administrativ_area &lt;- function(dataframe, column){
+  
+  # Split the specified column on commas
+  split_data &lt;- strsplit(column, &quot;,&quot;)
+  
+  # Extract the first, second, and third elements from each split string
+  one &lt;- sapply(split_data, function(x) x[1])
+  two &lt;- sapply(split_data, function(x) x[2])
+  three &lt;- sapply(split_data, function(x) x[3])
+  
+  # Create a new data frame from the extracted elements
+  df &lt;- data.frame(one = one, two = two, three = three)
+  
+  # Identify rows where the third column is not NA for swapping
+  swap_idx &lt;- !is.na(df$three)
+  
+  # Perform the swap of 'two' and 'three' where the third column is not NA
+  temp &lt;- df$two[swap_idx]
+  df$two[swap_idx] &lt;- df$three[swap_idx]
+  df$three[swap_idx] &lt;- temp
+  
+  # Fill missing values in 'two' based on how far the place is idented
+  df$two[is.na(df$two) &amp; regexpr(&quot;\\S&quot;, df$one)==1] &lt;- &quot;Land&quot;
+  df$two[is.na(df$two) &amp; regexpr(&quot;\\S&quot;, df$one)==3] &lt;- &quot;Bundesland&quot;
+  df$two[is.na(df$two) &amp; regexpr(&quot;\\S&quot;, df$one)==7] &lt;- &quot;Landkreis&quot;
+  
+  # Trim leading whitespace from 'one', 'two', and 'three'
+  df$one &lt;- sub(&quot;^\\s+&quot;, &quot;&quot;, df$one)
+  df$two &lt;- sub(&quot;^\\s+&quot;, &quot;&quot;, df$two)
+  df$three &lt;- sub(&quot;^\\s+&quot;, &quot;&quot;, df$three)
+  
+  # Update the original dataframe with the new columns
+  dataframe$Ort &lt;- df$one
+  dataframe$Administrative_Einheit &lt;- df$two
+  dataframe$Administrative_Besonderheit &lt;- df$three
+  
+  # Return the modified dataframe
+  return(dataframe)
+}
+</code></pre>
+</details>
+<hr>
 
 </section>
 
@@ -452,19 +475,6 @@ saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
             
                 
 <article class="">
-    <a href="/p/assignment-04-data-analysis/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Assignment 04 - Data analysis</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/assignment-03-data-analysis/">
         
         
@@ -497,6 +507,19 @@ saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
 
         <div class="article-details">
             <h2 class="article-title">Assignment 01 - Data analysis</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/assignment-01-03-geoai/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Assignment 01-03 - GeoAI</h2>
         </div>
     </a>
 </article>
