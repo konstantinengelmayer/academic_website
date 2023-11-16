@@ -14,7 +14,7 @@ tags: ["R Markdown", "R"]
 
 In this assignment we read and clean our data to prepare it for data
 analysis. First we take a look at the data:
-![Feldfruechte](../../data/feldfruechte.png)
+![Feldfruechte](feldfruechte.png)
 
 ### 1. Problems to solve
 
@@ -90,8 +90,8 @@ the rows by the ID and year.
 
 <details>
 <summary>
-Click here to view the code for the
-<code>cleaning\_administrative\_area()</code> -function
+Click here to view the code for the function
+<code>cleaning_administrative_area()</code>
 </summary>
 
     #A function to clean administrative area data in a data frame
