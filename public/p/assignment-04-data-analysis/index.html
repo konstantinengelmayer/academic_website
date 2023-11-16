@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 rows of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Identify the missing values and replace them with NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
 <title>Assignment 04 - Data analysis</title>
 
 <link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/'>
 
 <link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 04 - Data analysis'>
-<meta property='og:description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
+<meta property='og:description' content='Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 rows of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Identify the missing values and replace them with NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.'>
 <meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/'>
 <meta property='og:site_name' content='Konstantin Engelmayer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-13T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-16T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Assignment 04 - Data analysis">
-<meta name="twitter:description" content="Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 row of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Convert the missing values (“_” and “.” and “/”) to NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.">
+<meta name="twitter:description" content="Unmarked Assignment: Cleaning Crops In this assignment we read and clean our data to prepare it for data analysis. First we take a look at the data: 1. Problems to solve Skip first 6 and last 5 rows of the file Set right encoding to read Umlaute properly Read file with the first 3 column names missing Identify the missing values and replace them with NA Divide column 3 into 3 different columns Fill up the 3 different columns with missing information like “Land” and “Landkreis” Set a new order of the columns and sort the data frame by id and year 2.">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -248,6 +248,7 @@
       <ol>
         <li><a href="#1-problems-to-solve">1. Problems to solve</a></li>
         <li><a href="#2-problem-solving">2. Problem solving</a></li>
+        <li><a href="#3-resulting-data-frame">3. Resulting data frame</a></li>
       </ol>
     </li>
   </ol>
@@ -299,7 +300,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 13, 2023</time>
+                <time class="article-time--published">Nov 16, 2023</time>
             </div>
         
 
@@ -320,26 +321,22 @@
 <hr>
 <p>In this assignment we read and clean our data to prepare it for data
 analysis. First we take a look at the data:
-<img src="/p/assignment-04-data-analysis/feldfruechte.PNG"
-	width="1017"
-	height="545"
-	srcset="/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_480x0_resize_box_3.PNG 480w, /p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_1024x0_resize_box_3.PNG 1024w"
+<img src="/../../data/feldfruechte.png"
+	
+	
+	
 	loading="lazy"
 	
 		alt="Feldfruechte"
 	
 	
-		class="gallery-image" 
-		data-flex-grow="186"
-		data-flex-basis="447px"
-	
 ></p>
 <h3 id="1-problems-to-solve">1. Problems to solve</h3>
 <ol>
-<li>Skip first 6 and last 5 row of the file</li>
+<li>Skip first 6 and last 5 rows of the file</li>
 <li>Set right encoding to read Umlaute properly</li>
 <li>Read file with the first 3 column names missing</li>
-<li>Convert the missing values (“_” and “.” and “/”) to NA</li>
+<li>Identify the missing values and replace them with NA</li>
 <li>Divide column 3 into 3 different columns</li>
 <li>Fill up the 3 different columns with missing information like “Land”
 and “Landkreis”</li>
@@ -348,59 +345,78 @@ year</li>
 </ol>
 <hr>
 <h3 id="2-problem-solving">2. Problem solving</h3>
-<pre><code>data &lt;- read.csv2(file = &quot;../../data/115-46-4_feldfruechte.txt&quot;, header = TRUE, nrows = 8925, na.strings = c(&quot;.&quot; , &quot;-&quot;, &quot;/&quot;), skip = 6, check.names = FALSE, encoding = 'latin1')
+<p>We try to read the data for the first time. Also we save <code>nrow(data)</code> so
+that we know how many rows there are in the data frame to skip the last
+5.</p>
+<pre><code>data &lt;- read.csv2(file = &quot;../../data/115-46-4_feldfruechte.txt&quot;, header = TRUE, skip = 6, encoding = 'latin1', col.names = c(&quot;Year&quot;, &quot;ID&quot;, &quot;Location&quot;, &quot;Winter_Wheat&quot;, &quot;Rye_and_Winter_Mixed_Grain&quot;, &quot;Winter_Barley&quot;, &quot;Spring_Barley&quot;, &quot;Oats&quot;, &quot;Triticale&quot;, &quot;Potatoes&quot;, &quot;Sugar_Beets&quot;, &quot;Winter_Rapeseed&quot;, &quot;Silage_Maize&quot;))
+nrows &lt;- nrow(data)
+</code></pre>
+<p>Now we can open the data view tool of r studio and sort the column by
+their values to find the <code>na.strings</code>. There you will find “.”, “-” and
+“/”. Now we read the data again. With <code>str(data)</code> we check if r read the
+data correctly.</p>
+<pre><code>data &lt;- read.csv2(file = &quot;../../data/115-46-4_feldfruechte.txt&quot;, header = TRUE, skip = 6, encoding = 'latin1', na.string = c(&quot;.&quot;, &quot;-&quot;, &quot;/&quot;), nrows = nrows - 5, col.names = c(&quot;Year&quot;, &quot;ID&quot;, &quot;Location&quot;, &quot;Winter_Wheat&quot;, &quot;Rye_and_Winter_Mixed_Grain&quot;, &quot;Winter_Barley&quot;, &quot;Spring_Barley&quot;, &quot;Oats&quot;, &quot;Triticale&quot;, &quot;Potatoes&quot;, &quot;Sugar_Beets&quot;, &quot;Winter_Rapeseed&quot;, &quot;Silage_Maize&quot;))
+str(data)
+
+## 'data.frame':    8925 obs. of  13 variables:
+##  $ Year                      : int  2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ ID                        : chr  &quot;DG&quot; &quot;01&quot; &quot;01001&quot; &quot;01002&quot; ...
+##  $ Location                  : chr  &quot;Deutschland&quot; &quot;  Schleswig-Holstein&quot; &quot;      Flensburg, Kreisfreie Stadt&quot; &quot;      Kiel, Landeshauptstadt, Kreisfreie Stadt&quot; ...
+##  $ Winter_Wheat              : num  81.5 100.3 94 99.2 99.5 ...
+##  $ Rye_and_Winter_Mixed_Grain: num  56.6 79 0 73.9 84.7 79.7 87.5 76.9 79.6 77.4 ...
+##  $ Winter_Barley             : num  76.9 101.7 94.5 100.7 116.8 ...
+##  $ Spring_Barley             : num  54.2 59.1 0 0 0 0 0 0 0 0 ...
+##  $ Oats                      : num  45.1 60.5 0 0 0 0 0 0 0 0 ...
+##  $ Triticale                 : num  64.7 80.4 0 0 0 0 0 0 0 0 ...
+##  $ Potatoes                  : num  438 420 0 0 0 ...
+##  $ Sugar_Beets               : num  722 716 0 701 661 ...
+##  $ Winter_Rapeseed           : num  39.1 42.6 41.1 45.1 44.8 36 44.1 40 42.7 45.2 ...
+##  $ Silage_Maize              : num  414 406 390 450 465 ...
 </code></pre>
 <ul>
-<li>read.csv2() reads files with following default settings (e.g
+<li><code>read.csv2()</code> reads files with following default settings (e.g
 seperator = “,”, dec = “,”)</li>
-<li>skip = 6 skips the first 6 rows</li>
-<li>na.strings = c(“.”, “-”, “/”) repleaces missing values with NA´s</li>
-<li>check.names = FALSE disables the checking of the column names so it
-doesn´t produces an error with 3 missing column names</li>
-<li>encoding = ‘latin1’ allows Umlaute</li>
-<li>nrow = 8925 ignores the last 5 rows</li>
+<li><code>skip = 6</code> skips the first 6 rows</li>
+<li><code>na.strings = c(&quot;.&quot;, &quot;-&quot;, &quot;/&quot;)</code> replaces missing values with NA´s</li>
+<li>setting the column names while reading the data prevents error while
+reading the data with 3 missing column names</li>
+<li><code>encoding = 'latin1'</code> allows Umlaute</li>
+<li><code>nrows = nrows - 5</code>ignores the last 5 rows</li>
 </ul>
-<hr>
-<pre><code>colnames(data)[1:3] &lt;- c(&quot;Jahr&quot;, &quot;ID&quot;, &quot;Ort&quot;)
-</code></pre>
-<ul>
-<li>adds column names for the first 3 columns</li>
-</ul>
-<hr>
+<p>Now we have to divide the third column into 3. We want one column to
+contain the name of the place. The second column should contain
+information about the administrative unit. The third column should
+contain additional information like “Hansestadt”. For that we create 2
+new empty rows. To dived the column we use the
+<code>clean_administrativ_area()</code> function, we created in the
+function-script. Lastly we set the column in the right order and sort
+the rows by the ID and year.</p>
 <pre><code>source(&quot;functions.R&quot;)
-data$Administrative_Einheit &lt;- NA
-data$Administrative_Besonderheit &lt;- NA
-data &lt;- cleaning_administrativ_area(data, data$Ort)
+data$administrative_unit &lt;- NA
+data$additional_info &lt;- NA
+data &lt;- cleaning_administrativ_area(data, data$Location)
 data &lt;- data[,c(2,1,3,14,15,4,5,6,7,8,9,10,11,12,13)]
-data &lt;- data[order(data$ID,data$Jahr), ]
+data &lt;- data[order(data$ID,data$Year), ]
 rownames(data) &lt;- 1:nrow(data)
 </code></pre>
-<ul>
-<li>reads r-script of the cleaning_administrative_are()-function i
-created</li>
-<li>creates new columns for administrative variables</li>
-<li><code>cleaning_administrative_area()</code> seperates the “Ort”- column into 3
-columns</li>
-<li>sort and order the dataframe</li>
-</ul>
 <details>
 <summary>
 Click here to view the code for the
 <code>cleaning\_administrative\_area()</code> -function
 </summary>
-<pre><code># Define a function to clean administrative area data in a dataframe
+<pre><code>#A function to clean administrative area data in a data frame
 cleaning_administrativ_area &lt;- function(dataframe, column){
   
   # Split the specified column on commas
   split_data &lt;- strsplit(column, &quot;,&quot;)
   
-  # Extract the first, second, and third elements from each split string
-  one &lt;- sapply(split_data, function(x) x[1])
-  two &lt;- sapply(split_data, function(x) x[2])
-  three &lt;- sapply(split_data, function(x) x[3])
+  #create a matrix out of the split_data
+  extracted &lt;- t(sapply(split_data, function(x) x[1:3]))
   
-  # Create a new data frame from the extracted elements
-  df &lt;- data.frame(one = one, two = two, three = three)
+  # Convert the matrix to a data frame
+  df &lt;- as.data.frame(extracted)
+  names(df) &lt;- c(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;)
+
   
   # Identify rows where the third column is not NA for swapping
   swap_idx &lt;- !is.na(df$three)
@@ -421,9 +437,9 @@ cleaning_administrativ_area &lt;- function(dataframe, column){
   df$three &lt;- sub(&quot;^\\s+&quot;, &quot;&quot;, df$three)
   
   # Update the original dataframe with the new columns
-  dataframe$Ort &lt;- df$one
-  dataframe$Administrative_Einheit &lt;- df$two
-  dataframe$Administrative_Besonderheit &lt;- df$three
+  dataframe$Location &lt;- df$one
+  dataframe$administrative_unit &lt;- df$two
+  dataframe$additional_info &lt;- df$three
   
   # Return the modified dataframe
   return(dataframe)
@@ -431,6 +447,31 @@ cleaning_administrativ_area &lt;- function(dataframe, column){
 </code></pre>
 </details>
 <hr>
+<h3 id="3-resulting-data-frame">3. Resulting data frame</h3>
+<pre><code>head(data)
+
+##   ID Year           Location administrative_unit additional_info Winter_Wheat
+## 1 01 1999 Schleswig-Holstein          Bundesland            &lt;NA&gt;         91.9
+## 2 01 2000 Schleswig-Holstein          Bundesland            &lt;NA&gt;         96.5
+## 3 01 2001 Schleswig-Holstein          Bundesland            &lt;NA&gt;         98.4
+## 4 01 2002 Schleswig-Holstein          Bundesland            &lt;NA&gt;         81.6
+## 5 01 2003 Schleswig-Holstein          Bundesland            &lt;NA&gt;         86.4
+## 6 01 2004 Schleswig-Holstein          Bundesland            &lt;NA&gt;         90.7
+##   Rye_and_Winter_Mixed_Grain Winter_Barley Spring_Barley Oats Triticale Potatoes
+## 1                       67.6          86.8          56.3 59.2      67.2    376.6
+## 2                       67.1          81.7          54.9 53.7      71.4    379.6
+## 3                       73.2          87.2          49.6 56.1      77.4    370.4
+## 4                       64.9          74.4          44.4 50.2      67.2    328.9
+## 5                       67.1          79.6          53.0 61.7      73.2    347.7
+## 6                       69.7          84.4          51.3 61.4      72.6    402.0
+##   Sugar_Beets Winter_Rapeseed Silage_Maize
+## 1       543.7            39.7        378.4
+## 2       555.3            39.5        356.8
+## 3       538.3            41.1        385.1
+## 4       533.7            32.0        372.3
+## 5       546.3            37.9        343.9
+## 6       572.1            44.2        354.5
+</code></pre>
 
 </section>
 

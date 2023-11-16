@@ -6,10 +6,10 @@
         <description>Recent content in Data Analysis on Konstantin Engelmayer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 13 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/categories/data-analysis/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/categories/data-analysis/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Assignment 04 - Data analysis</title>
         <link>https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/</link>
-        <pubDate>Mon, 13 Nov 2023 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 16 Nov 2023 00:00:00 +0000</pubDate>
         
         <guid>https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/</guid>
         <description>&lt;hr&gt;
@@ -17,26 +17,22 @@
 &lt;hr&gt;
 &lt;p&gt;In this assignment we read and clean our data to prepare it for data
 analysis. First we take a look at the data:
-&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte.PNG&#34;
-	width=&#34;1017&#34;
-	height=&#34;545&#34;
-	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_480x0_resize_box_3.PNG 480w, https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_1024x0_resize_box_3.PNG 1024w&#34;
+&lt;img src=&#34;https://demo.stack.jimmycai.com/../../data/feldfruechte.png&#34;
+	
+	
+	
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Feldfruechte&#34;
 	
 	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;186&#34;
-		data-flex-basis=&#34;447px&#34;
-	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;1-problems-to-solve&#34;&gt;1. Problems to solve&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;Skip first 6 and last 5 row of the file&lt;/li&gt;
+&lt;li&gt;Skip first 6 and last 5 rows of the file&lt;/li&gt;
 &lt;li&gt;Set right encoding to read Umlaute properly&lt;/li&gt;
 &lt;li&gt;Read file with the first 3 column names missing&lt;/li&gt;
-&lt;li&gt;Convert the missing values (“_” and “.” and “/”) to NA&lt;/li&gt;
+&lt;li&gt;Identify the missing values and replace them with NA&lt;/li&gt;
 &lt;li&gt;Divide column 3 into 3 different columns&lt;/li&gt;
 &lt;li&gt;Fill up the 3 different columns with missing information like “Land”
 and “Landkreis”&lt;/li&gt;
@@ -45,59 +41,78 @@ year&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;2-problem-solving&#34;&gt;2. Problem solving&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;data &amp;lt;- read.csv2(file = &amp;quot;../../data/115-46-4_feldfruechte.txt&amp;quot;, header = TRUE, nrows = 8925, na.strings = c(&amp;quot;.&amp;quot; , &amp;quot;-&amp;quot;, &amp;quot;/&amp;quot;), skip = 6, check.names = FALSE, encoding = &#39;latin1&#39;)
+&lt;p&gt;We try to read the data for the first time. Also we save &lt;code&gt;nrow(data)&lt;/code&gt; so
+that we know how many rows there are in the data frame to skip the last
+5.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data &amp;lt;- read.csv2(file = &amp;quot;../../data/115-46-4_feldfruechte.txt&amp;quot;, header = TRUE, skip = 6, encoding = &#39;latin1&#39;, col.names = c(&amp;quot;Year&amp;quot;, &amp;quot;ID&amp;quot;, &amp;quot;Location&amp;quot;, &amp;quot;Winter_Wheat&amp;quot;, &amp;quot;Rye_and_Winter_Mixed_Grain&amp;quot;, &amp;quot;Winter_Barley&amp;quot;, &amp;quot;Spring_Barley&amp;quot;, &amp;quot;Oats&amp;quot;, &amp;quot;Triticale&amp;quot;, &amp;quot;Potatoes&amp;quot;, &amp;quot;Sugar_Beets&amp;quot;, &amp;quot;Winter_Rapeseed&amp;quot;, &amp;quot;Silage_Maize&amp;quot;))
+nrows &amp;lt;- nrow(data)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can open the data view tool of r studio and sort the column by
+their values to find the &lt;code&gt;na.strings&lt;/code&gt;. There you will find “.”, “-” and
+“/”. Now we read the data again. With &lt;code&gt;str(data)&lt;/code&gt; we check if r read the
+data correctly.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data &amp;lt;- read.csv2(file = &amp;quot;../../data/115-46-4_feldfruechte.txt&amp;quot;, header = TRUE, skip = 6, encoding = &#39;latin1&#39;, na.string = c(&amp;quot;.&amp;quot;, &amp;quot;-&amp;quot;, &amp;quot;/&amp;quot;), nrows = nrows - 5, col.names = c(&amp;quot;Year&amp;quot;, &amp;quot;ID&amp;quot;, &amp;quot;Location&amp;quot;, &amp;quot;Winter_Wheat&amp;quot;, &amp;quot;Rye_and_Winter_Mixed_Grain&amp;quot;, &amp;quot;Winter_Barley&amp;quot;, &amp;quot;Spring_Barley&amp;quot;, &amp;quot;Oats&amp;quot;, &amp;quot;Triticale&amp;quot;, &amp;quot;Potatoes&amp;quot;, &amp;quot;Sugar_Beets&amp;quot;, &amp;quot;Winter_Rapeseed&amp;quot;, &amp;quot;Silage_Maize&amp;quot;))
+str(data)
+
+## &#39;data.frame&#39;:    8925 obs. of  13 variables:
+##  $ Year                      : int  2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
+##  $ ID                        : chr  &amp;quot;DG&amp;quot; &amp;quot;01&amp;quot; &amp;quot;01001&amp;quot; &amp;quot;01002&amp;quot; ...
+##  $ Location                  : chr  &amp;quot;Deutschland&amp;quot; &amp;quot;  Schleswig-Holstein&amp;quot; &amp;quot;      Flensburg, Kreisfreie Stadt&amp;quot; &amp;quot;      Kiel, Landeshauptstadt, Kreisfreie Stadt&amp;quot; ...
+##  $ Winter_Wheat              : num  81.5 100.3 94 99.2 99.5 ...
+##  $ Rye_and_Winter_Mixed_Grain: num  56.6 79 0 73.9 84.7 79.7 87.5 76.9 79.6 77.4 ...
+##  $ Winter_Barley             : num  76.9 101.7 94.5 100.7 116.8 ...
+##  $ Spring_Barley             : num  54.2 59.1 0 0 0 0 0 0 0 0 ...
+##  $ Oats                      : num  45.1 60.5 0 0 0 0 0 0 0 0 ...
+##  $ Triticale                 : num  64.7 80.4 0 0 0 0 0 0 0 0 ...
+##  $ Potatoes                  : num  438 420 0 0 0 ...
+##  $ Sugar_Beets               : num  722 716 0 701 661 ...
+##  $ Winter_Rapeseed           : num  39.1 42.6 41.1 45.1 44.8 36 44.1 40 42.7 45.2 ...
+##  $ Silage_Maize              : num  414 406 390 450 465 ...
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;read.csv2() reads files with following default settings (e.g
+&lt;li&gt;&lt;code&gt;read.csv2()&lt;/code&gt; reads files with following default settings (e.g
 seperator = “,”, dec = “,”)&lt;/li&gt;
-&lt;li&gt;skip = 6 skips the first 6 rows&lt;/li&gt;
-&lt;li&gt;na.strings = c(“.”, “-”, “/”) repleaces missing values with NA´s&lt;/li&gt;
-&lt;li&gt;check.names = FALSE disables the checking of the column names so it
-doesn´t produces an error with 3 missing column names&lt;/li&gt;
-&lt;li&gt;encoding = ‘latin1’ allows Umlaute&lt;/li&gt;
-&lt;li&gt;nrow = 8925 ignores the last 5 rows&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip = 6&lt;/code&gt; skips the first 6 rows&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;na.strings = c(&amp;quot;.&amp;quot;, &amp;quot;-&amp;quot;, &amp;quot;/&amp;quot;)&lt;/code&gt; replaces missing values with NA´s&lt;/li&gt;
+&lt;li&gt;setting the column names while reading the data prevents error while
+reading the data with 3 missing column names&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;encoding = &#39;latin1&#39;&lt;/code&gt; allows Umlaute&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nrows = nrows - 5&lt;/code&gt;ignores the last 5 rows&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;
-&lt;pre&gt;&lt;code&gt;colnames(data)[1:3] &amp;lt;- c(&amp;quot;Jahr&amp;quot;, &amp;quot;ID&amp;quot;, &amp;quot;Ort&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;adds column names for the first 3 columns&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
+&lt;p&gt;Now we have to divide the third column into 3. We want one column to
+contain the name of the place. The second column should contain
+information about the administrative unit. The third column should
+contain additional information like “Hansestadt”. For that we create 2
+new empty rows. To dived the column we use the
+&lt;code&gt;clean_administrativ_area()&lt;/code&gt; function, we created in the
+function-script. Lastly we set the column in the right order and sort
+the rows by the ID and year.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;source(&amp;quot;functions.R&amp;quot;)
-data$Administrative_Einheit &amp;lt;- NA
-data$Administrative_Besonderheit &amp;lt;- NA
-data &amp;lt;- cleaning_administrativ_area(data, data$Ort)
+data$administrative_unit &amp;lt;- NA
+data$additional_info &amp;lt;- NA
+data &amp;lt;- cleaning_administrativ_area(data, data$Location)
 data &amp;lt;- data[,c(2,1,3,14,15,4,5,6,7,8,9,10,11,12,13)]
-data &amp;lt;- data[order(data$ID,data$Jahr), ]
+data &amp;lt;- data[order(data$ID,data$Year), ]
 rownames(data) &amp;lt;- 1:nrow(data)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;reads r-script of the cleaning_administrative_are()-function i
-created&lt;/li&gt;
-&lt;li&gt;creates new columns for administrative variables&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cleaning_administrative_area()&lt;/code&gt; seperates the “Ort”- column into 3
-columns&lt;/li&gt;
-&lt;li&gt;sort and order the dataframe&lt;/li&gt;
-&lt;/ul&gt;
 &lt;details&gt;
 &lt;summary&gt;
 Click here to view the code for the
 &lt;code&gt;cleaning\_administrative\_area()&lt;/code&gt; -function
 &lt;/summary&gt;
-&lt;pre&gt;&lt;code&gt;# Define a function to clean administrative area data in a dataframe
+&lt;pre&gt;&lt;code&gt;#A function to clean administrative area data in a data frame
 cleaning_administrativ_area &amp;lt;- function(dataframe, column){
   
   # Split the specified column on commas
   split_data &amp;lt;- strsplit(column, &amp;quot;,&amp;quot;)
   
-  # Extract the first, second, and third elements from each split string
-  one &amp;lt;- sapply(split_data, function(x) x[1])
-  two &amp;lt;- sapply(split_data, function(x) x[2])
-  three &amp;lt;- sapply(split_data, function(x) x[3])
+  #create a matrix out of the split_data
+  extracted &amp;lt;- t(sapply(split_data, function(x) x[1:3]))
   
-  # Create a new data frame from the extracted elements
-  df &amp;lt;- data.frame(one = one, two = two, three = three)
+  # Convert the matrix to a data frame
+  df &amp;lt;- as.data.frame(extracted)
+  names(df) &amp;lt;- c(&amp;quot;one&amp;quot;, &amp;quot;two&amp;quot;, &amp;quot;three&amp;quot;)
+
   
   # Identify rows where the third column is not NA for swapping
   swap_idx &amp;lt;- !is.na(df$three)
@@ -118,9 +133,9 @@ cleaning_administrativ_area &amp;lt;- function(dataframe, column){
   df$three &amp;lt;- sub(&amp;quot;^\\s+&amp;quot;, &amp;quot;&amp;quot;, df$three)
   
   # Update the original dataframe with the new columns
-  dataframe$Ort &amp;lt;- df$one
-  dataframe$Administrative_Einheit &amp;lt;- df$two
-  dataframe$Administrative_Besonderheit &amp;lt;- df$three
+  dataframe$Location &amp;lt;- df$one
+  dataframe$administrative_unit &amp;lt;- df$two
+  dataframe$additional_info &amp;lt;- df$three
   
   # Return the modified dataframe
   return(dataframe)
@@ -128,6 +143,31 @@ cleaning_administrativ_area &amp;lt;- function(dataframe, column){
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 &lt;hr&gt;
+&lt;h3 id=&#34;3-resulting-data-frame&#34;&gt;3. Resulting data frame&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;head(data)
+
+##   ID Year           Location administrative_unit additional_info Winter_Wheat
+## 1 01 1999 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         91.9
+## 2 01 2000 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         96.5
+## 3 01 2001 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         98.4
+## 4 01 2002 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         81.6
+## 5 01 2003 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         86.4
+## 6 01 2004 Schleswig-Holstein          Bundesland            &amp;lt;NA&amp;gt;         90.7
+##   Rye_and_Winter_Mixed_Grain Winter_Barley Spring_Barley Oats Triticale Potatoes
+## 1                       67.6          86.8          56.3 59.2      67.2    376.6
+## 2                       67.1          81.7          54.9 53.7      71.4    379.6
+## 3                       73.2          87.2          49.6 56.1      77.4    370.4
+## 4                       64.9          74.4          44.4 50.2      67.2    328.9
+## 5                       67.1          79.6          53.0 61.7      73.2    347.7
+## 6                       69.7          84.4          51.3 61.4      72.6    402.0
+##   Sugar_Beets Winter_Rapeseed Silage_Maize
+## 1       543.7            39.7        378.4
+## 2       555.3            39.5        356.8
+## 3       538.3            41.1        385.1
+## 4       533.7            32.0        372.3
+## 5       546.3            37.9        343.9
+## 6       572.1            44.2        354.5
+&lt;/code&gt;&lt;/pre&gt;
 </description>
         </item>
         <item>
