@@ -112,7 +112,7 @@ p-value states the probability of the null hypothesis.
       labs(title = "Histogram of P-Values", x = "P-Value", y = "Frequency")+
       geom_text(aes(label = "p-value of 0.05", x = 0.075, y = 20), hjust = 0, vjust = 0, color = 4)
 
-![]unnamed-chunk-4-1.png)
+![](unnamed-chunk-4-1.png)
 
 In 77 of the 100 cases the p-value of the Shapiro-Wilk test is beneath
 or equal 0.05 which matches with the graphical analysis we did before.
