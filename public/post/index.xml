@@ -6,7 +6,138 @@
         <description>Recent content in Posts on Konstantin Engelmayer</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 16 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 24 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://demo.stack.jimmycai.com/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Assignment 05 - Data analysis</title>
+        <link>https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/</link>
+        <pubDate>Fri, 24 Nov 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/</guid>
+        <description>&lt;hr&gt;
+&lt;h2 id=&#34;marked-assignment-recreation-vssettlement&#34;&gt;Marked Assignment: Recreation vs. Settlement&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;First we simply read the .RDS file provided.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;data &amp;lt;- readRDS(file = &amp;quot;../../data/lu_clean.RDS&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;linear-model&#34;&gt;Linear Model&lt;/h3&gt;
+&lt;p&gt;Here we calculate the linear model. After calculating the model, we
+create the equation to be displayed within the plot. Lastly we create
+the plot with the ggplot package.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(ggplot2)
+
+model &amp;lt;- lm(Settlement ~ Recreation, data)
+
+# Calculate model coefficients for the label
+intercept &amp;lt;- round(coef(model)[1], 3)
+slope &amp;lt;- round(coef(model)[2], 3)
+equation_label &amp;lt;- paste0(&amp;quot;y = &amp;quot;, intercept, &amp;quot; + &amp;quot;, slope, &amp;quot;x&amp;quot;)
+r_squared &amp;lt;- summary(model)$r.squared
+label &amp;lt;- paste(equation_label, &amp;quot;\nR-squared = &amp;quot;, round(r_squared, 2))
+
+
+
+# Create ggplot
+ggplot(data, aes(x = Settlement, y = Recreation)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = &amp;quot;lm&amp;quot;, color = 4) +
+  geom_text(aes(label = as.character(label), x = 5, y = 11), hjust = 0, vjust = 0, color = 4) +
+  theme_minimal() +
+  labs(title = &amp;quot;Settlement vs Recreation&amp;quot;, x = &amp;quot;Recreation Area (%)&amp;quot;, y = &amp;quot;Settlement Area (%)&amp;quot;)
+
+## `geom_smooth()` using formula = &#39;y ~ x&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-2-1.png&#34;
+	width=&#34;672&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-2-1_hu12f7b3b52d6081b0bf475cbe33249ce6_18654_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-2-1_hu12f7b3b52d6081b0bf475cbe33249ce6_18654_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;336px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;minimum-assumptions&#34;&gt;Minimum assumptions&lt;/h3&gt;
+&lt;p&gt;Now we check for the homogeneity of the variance of residuals
+(homoscedasticity) and the normality of the residuals. For this, we plot
+the fitted values against the residuals and create a QQ-Plot.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(gridExtra)
+
+# Plot 1: Residuals vs Fitted
+p1 &amp;lt;- ggplot(data.frame(Fitted = fitted(model), Residuals = residuals(model)),  aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = 4) +
+  labs(title = &amp;quot;Residuals vs Fitted&amp;quot;, x = &amp;quot;Fitted Values&amp;quot;, y = &amp;quot;Residuals&amp;quot;) +
+  theme_minimal()
+
+# Plot 2: Normal Q-Q Plot
+p2 &amp;lt;- ggplot(data.frame(residuals = residuals(model)), aes(sample = residuals)) +
+  stat_qq() +
+  stat_qq_line(color = 4) +
+  labs(title = &amp;quot;Normal Q-Q Plot&amp;quot;, x = &amp;quot;Theoretical Quantiles&amp;quot;, y = &amp;quot;Sample Quantiles&amp;quot;) +
+  theme_minimal()
+
+# Arrange the plots side by side
+grid.arrange(p1, p2, ncol = 2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-3-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;480&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-3-1_hu836299f7c54b91dfe6a76d2d448ea3e4_14318_480x0_resize_box_3.png 480w, https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/unnamed-chunk-3-1_hu836299f7c54b91dfe6a76d2d448ea3e4_14318_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;200&#34;
+		data-flex-basis=&#34;480px&#34;
+	
+&gt;
+The plots show that the residuals are neither homoscedastic nor normally
+distributed, so we should have used a generalized model.&lt;/p&gt;
+&lt;h3 id=&#34;evaluation-of-the-shapiro-wilk-test&#34;&gt;Evaluation of the Shapiro-Wilk test&lt;/h3&gt;
+&lt;p&gt;Now we evaluate how often a normal distribution test on the residuals
+would reject it’s null-hypothesis if a regression model is not computed
+on the entire data set but 100 regression models are computed on 100
+sub-samples of the data set. The following code creates 100 random
+subsets with 50 Objects of the full data frame. For each subset we
+calculate a linear model. We use the Shapiro-Wilk test to test the
+residuals of the models for normal distribution. The p-values are being
+saved in a data frame and displayed in a histogram. The null hypothesis
+of the Shapiro-Wilk test is that the data is normally distributed. The
+p-value states the probability of the null hypothesis.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;random_subsets &amp;lt;- list()
+results &amp;lt;- data.frame(Iteration = integer(0), P_Value = numeric(0))
+
+# Set the seed once for reproducibility
+set.seed(123) 
+
+for (i in 1:100) {
+  random_indices &amp;lt;- sample(nrow(data), 50)
+  random_subsets[[i]] &amp;lt;- data[random_indices, ]
+  
+  linear_model &amp;lt;- lm(Settlement ~ Recreation, random_subsets[[i]])
+  p_value &amp;lt;- shapiro.test(resid(linear_model))$p.value
+  results &amp;lt;- rbind(results, data.frame(Iteration = i, P_Value = p_value))
+}
+
+ggplot(results, aes(x = P_Value)) +
+  geom_histogram(bins = 40) +
+  geom_vline(xintercept = 0.0375, color = 4, linetype = &amp;quot;dashed&amp;quot;) +
+  labs(title = &amp;quot;Histogram of P-Values&amp;quot;, x = &amp;quot;P-Value&amp;quot;, y = &amp;quot;Frequency&amp;quot;)+
+  geom_text(aes(label = &amp;quot;p-value of 0.05&amp;quot;, x = 0.075, y = 20), hjust = 0, vjust = 0, color = 4)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;![]unnamed-chunk-4-1.png)&lt;/p&gt;
+&lt;p&gt;In 77 of the 100 cases the p-value of the Shapiro-Wilk test is beneath
+or equal 0.05 which matches with the graphical analysis we did before.
+However, in 23 cases, the null hypothesis cannot be rejected. The
+variability in the test results across different subsets highlights the
+influence of sample size and selection on the performance of normality
+tests like Shapiro-Wilk and shows how randomness in sub sampling can
+lead to subsets that are not representative of the entire dataset.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Assignment 04 - Data analysis</title>
         <link>https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/</link>
         <pubDate>Thu, 16 Nov 2023 00:00:00 +0000</pubDate>
@@ -17,14 +148,18 @@
 &lt;hr&gt;
 &lt;p&gt;In this assignment we read and clean our data to prepare it for data
 analysis. First we take a look at the data:
-&lt;img src=&#34;https://demo.stack.jimmycai.com/../../data/feldfruechte.png&#34;
-	
-	
-	
+&lt;img src=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte.PNG&#34;
+	width=&#34;1017&#34;
+	height=&#34;545&#34;
+	srcset=&#34;https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_480x0_resize_box_3.PNG 480w, https://demo.stack.jimmycai.com/p/assignment-04-data-analysis/feldfruechte_huf529da93cb72d163e7f100ecec5a7459_57117_1024x0_resize_box_3.PNG 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Feldfruechte&#34;
 	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;447px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;1-problems-to-solve&#34;&gt;1. Problems to solve&lt;/h3&gt;
@@ -97,8 +232,8 @@ rownames(data) &amp;lt;- 1:nrow(data)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;details&gt;
 &lt;summary&gt;
-Click here to view the code for the
-&lt;code&gt;cleaning\_administrative\_area()&lt;/code&gt; -function
+Click here to view the code for the function
+&lt;code&gt;cleaning_administrative_area()&lt;/code&gt;
 &lt;/summary&gt;
 &lt;pre&gt;&lt;code&gt;#A function to clean administrative area data in a data frame
 cleaning_administrativ_area &amp;lt;- function(dataframe, column){

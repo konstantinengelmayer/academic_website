@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
-<title>Assignment 01-03 - GeoAI</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Marked Assignment: Recreation vs. Settlement First we simply read the .RDS file provided.
+data &amp;lt;- readRDS(file = &amp;quot;../../data/lu_clean.RDS&amp;quot;)Linear Model Here we calculate the linear model. After calculating the model, we create the equation to be displayed within the plot. Lastly we create the plot with the ggplot package.
+library(ggplot2)model &amp;lt;- lm(Settlement ~ Recreation, data)# Calculate model coefficients for the labelintercept &amp;lt;- round(coef(model)[1], 3)slope &amp;lt;- round(coef(model)[2], 3)equation_label &amp;lt;- paste0(&amp;quot;y = &amp;quot;, intercept, &amp;quot; &#43; &amp;quot;, slope, &amp;quot;x&amp;quot;)r_squared &amp;lt;- summary(model)$r.'>
+<title>Assignment 05 - Data analysis</title>
 
-<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
+<link rel='canonical' href='https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 01-03 - GeoAI'>
-<meta property='og:description' content='Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.'>
-<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-01-03-geoai/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Assignment 05 - Data analysis'>
+<meta property='og:description' content='Marked Assignment: Recreation vs. Settlement First we simply read the .RDS file provided.
+data &amp;lt;- readRDS(file = &amp;quot;../../data/lu_clean.RDS&amp;quot;)Linear Model Here we calculate the linear model. After calculating the model, we create the equation to be displayed within the plot. Lastly we create the plot with the ggplot package.
+library(ggplot2)model &amp;lt;- lm(Settlement ~ Recreation, data)# Calculate model coefficients for the labelintercept &amp;lt;- round(coef(model)[1], 3)slope &amp;lt;- round(coef(model)[2], 3)equation_label &amp;lt;- paste0(&amp;quot;y = &amp;quot;, intercept, &amp;quot; &#43; &amp;quot;, slope, &amp;quot;x&amp;quot;)r_squared &amp;lt;- summary(model)$r.'>
+<meta property='og:url' content='https://demo.stack.jimmycai.com/p/assignment-05-data-analysis/'>
 <meta property='og:site_name' content='Konstantin Engelmayer'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-12T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-12T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Assignment 01-03 - GeoAI">
-<meta name="twitter:description" content="Warm up spatial This is a follow-along exercise to get familiar with handling spatial data in R. First we read our geoAI_setup file to get our directories and load our packages
-source(&amp;quot;geoAI_setup.R&amp;quot;)Now we read our raster excerpt with the rast-function of the terra package.
-dop &amp;lt;- terra::rast(paste0(envrmt$path_data_level1,&amp;quot;/marburg_dop_excerpt.tif&amp;quot;))We download building data from open street map and get the polygons.
-buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt;%osmdata::add_osm_feature(key = &amp;quot;building&amp;quot;) %&amp;gt;%osmdata::osmdata_sf()buildings &amp;lt;- buildings$osm_polygonsWe check the if the projections are the same and transform them to match.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='R Markdown' /><meta property='article:tag' content='R' /><meta property='article:published_time' content='2023-11-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-11-24T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Assignment 05 - Data analysis">
+<meta name="twitter:description" content="Marked Assignment: Recreation vs. Settlement First we simply read the .RDS file provided.
+data &amp;lt;- readRDS(file = &amp;quot;../../data/lu_clean.RDS&amp;quot;)Linear Model Here we calculate the linear model. After calculating the model, we create the equation to be displayed within the plot. Lastly we create the plot with the ggplot package.
+library(ggplot2)model &amp;lt;- lm(Settlement ~ Recreation, data)# Calculate model coefficients for the labelintercept &amp;lt;- round(coef(model)[1], 3)slope &amp;lt;- round(coef(model)[2], 3)equation_label &amp;lt;- paste0(&amp;quot;y = &amp;quot;, intercept, &amp;quot; &#43; &amp;quot;, slope, &amp;quot;x&amp;quot;)r_squared &amp;lt;- summary(model)$r.">
     <link rel="shortcut icon" href="/favicon.png" />
 
     </head>
@@ -253,7 +250,13 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#warm-up-spatial">Warm up spatial</a></li>
+    <li><a href="#marked-assignment-recreation-vssettlement">Marked Assignment: Recreation vs. Settlement</a>
+      <ol>
+        <li><a href="#linear-model">Linear Model</a></li>
+        <li><a href="#minimum-assumptions">Minimum assumptions</a></li>
+        <li><a href="#evaluation-of-the-shapiro-wilk-test">Evaluation of the Shapiro-Wilk test</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -272,8 +275,8 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
     
     <header class="article-category">
         
-            <a href="/categories/geoai/" >
-                GeoAI
+            <a href="/categories/data-analysis/" >
+                Data Analysis
             </a>
         
     </header>
@@ -281,7 +284,7 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/assignment-01-03-geoai/">Assignment 01-03 - GeoAI</a>
+            <a href="/p/assignment-05-data-analysis/">Assignment 05 - Data analysis</a>
         </h2>
     
         
@@ -303,7 +306,7 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 12, 2023</time>
+                <time class="article-time--published">Nov 24, 2023</time>
             </div>
         
 
@@ -320,46 +323,44 @@ buildings &amp;lt;- osmdata::opq(bbox = &amp;quot;marburg de&amp;quot;) %&amp;gt
     
     
     <hr>
-<h2 id="warm-up-spatial">Warm up spatial</h2>
+<h2 id="marked-assignment-recreation-vssettlement">Marked Assignment: Recreation vs. Settlement</h2>
 <hr>
-<p>This is a follow-along exercise to get familiar with handling spatial
-data in R. First we read our geoAI_setup file to get our directories
-and load our packages</p>
-<pre><code>source(&quot;geoAI_setup.R&quot;)
+<p>First we simply read the .RDS file provided.</p>
+<pre><code>data &lt;- readRDS(file = &quot;../../data/lu_clean.RDS&quot;)
 </code></pre>
-<p>Now we read our raster excerpt with the rast-function of the terra
-package.</p>
-<pre><code>dop &lt;- terra::rast(paste0(envrmt$path_data_level1,&quot;/marburg_dop_excerpt.tif&quot;))
+<hr>
+<h3 id="linear-model">Linear Model</h3>
+<p>Here we calculate the linear model. After calculating the model, we
+create the equation to be displayed within the plot. Lastly we create
+the plot with the ggplot package.</p>
+<pre><code>library(ggplot2)
+
+model &lt;- lm(Settlement ~ Recreation, data)
+
+# Calculate model coefficients for the label
+intercept &lt;- round(coef(model)[1], 3)
+slope &lt;- round(coef(model)[2], 3)
+equation_label &lt;- paste0(&quot;y = &quot;, intercept, &quot; + &quot;, slope, &quot;x&quot;)
+r_squared &lt;- summary(model)$r.squared
+label &lt;- paste(equation_label, &quot;\nR-squared = &quot;, round(r_squared, 2))
+
+
+
+# Create ggplot
+ggplot(data, aes(x = Settlement, y = Recreation)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = &quot;lm&quot;, color = 4) +
+  geom_text(aes(label = as.character(label), x = 5, y = 11), hjust = 0, vjust = 0, color = 4) +
+  theme_minimal() +
+  labs(title = &quot;Settlement vs Recreation&quot;, x = &quot;Recreation Area (%)&quot;, y = &quot;Settlement Area (%)&quot;)
+
+## `geom_smooth()` using formula = 'y ~ x'
 </code></pre>
-<p>We download building data from open street map and get the polygons.</p>
-<pre><code>buildings &lt;- osmdata::opq(bbox = &quot;marburg de&quot;) %&gt;%
-  osmdata::add_osm_feature(key = &quot;building&quot;) %&gt;%
-  osmdata::osmdata_sf()
-
-buildings &lt;- buildings$osm_polygons
-</code></pre>
-<p>We check the if the projections are the same and transform them to
-match.</p>
-<pre><code>terra::same.crs(dop,buildings)
-
-## [1] FALSE
-
-buildings &lt;- sf::st_transform(buildings, terra::crs(dop))
-
-terra::same.crs(dop,buildings)
-
-## [1] TRUE
-</code></pre>
-<p>Now we can take a look at the raster.</p>
-<pre><code>terra::plotRGB(dop)
-</code></pre>
-<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-5-1.png"
+<p><img src="/p/assignment-05-data-analysis/unnamed-chunk-2-1.png"
 	width="672"
 	height="480"
-	srcset="/p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-5-1_huf093c009709017769eb29cdf1b20ec60_475725_1024x0_resize_box_3.png 1024w"
+	srcset="/p/assignment-05-data-analysis/unnamed-chunk-2-1_hu12f7b3b52d6081b0bf475cbe33249ce6_18654_480x0_resize_box_3.png 480w, /p/assignment-05-data-analysis/unnamed-chunk-2-1_hu12f7b3b52d6081b0bf475cbe33249ce6_18654_1024x0_resize_box_3.png 1024w"
 	loading="lazy"
-	
-		alt="Plot1"
 	
 	
 		class="gallery-image" 
@@ -367,47 +368,83 @@ terra::same.crs(dop,buildings)
 		data-flex-basis="336px"
 	
 ></p>
-<p>We can calculate different indices with the given bands.</p>
-<pre><code># Extract individual bands from the DOP for further analysis
-red &lt;- dop[[1]]
-green &lt;- dop[[2]]
-blue &lt;- dop[[3]]
+<h3 id="minimum-assumptions">Minimum assumptions</h3>
+<p>Now we check for the homogeneity of the variance of residuals
+(homoscedasticity) and the normality of the residuals. For this, we plot
+the fitted values against the residuals and create a QQ-Plot.</p>
+<pre><code>library(gridExtra)
 
-# Calculate the Normalized Difference Turbidity Index (NDTI)
-NDTI &lt;- (red -green) / (red + green)
-names(NDTI) &lt;- &quot;NDTI&quot;
+# Plot 1: Residuals vs Fitted
+p1 &lt;- ggplot(data.frame(Fitted = fitted(model), Residuals = residuals(model)),  aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = 4) +
+  labs(title = &quot;Residuals vs Fitted&quot;, x = &quot;Fitted Values&quot;, y = &quot;Residuals&quot;) +
+  theme_minimal()
 
-# Calculate the Visible Atmospherically Resistant Index (VARI)
-VARI &lt;- (green - red) / (green + red - blue)
-names(VARI) &lt;- &quot;VARI&quot;
+# Plot 2: Normal Q-Q Plot
+p2 &lt;- ggplot(data.frame(residuals = residuals(model)), aes(sample = residuals)) +
+  stat_qq() +
+  stat_qq_line(color = 4) +
+  labs(title = &quot;Normal Q-Q Plot&quot;, x = &quot;Theoretical Quantiles&quot;, y = &quot;Sample Quantiles&quot;) +
+  theme_minimal()
 
-# Calculate the Triangular Greenness Index (TGI)
-TGI &lt;- -0.5 * (190 * (red - green) - 120 * (red - blue))
-names(TGI) &lt;- &quot;TGI&quot;
-
-# Combine the indices into a single stack for plotting
-rgbI &lt;- c(NDTI, VARI, TGI)
-terra::plot(rgbI)
+# Arrange the plots side by side
+grid.arrange(p1, p2, ncol = 2)
 </code></pre>
-<p><img src="/p/assignment-01-03-geoai/unnamed-chunk-6-1.png"
-	width="672"
+<p><img src="/p/assignment-05-data-analysis/unnamed-chunk-3-1.png"
+	width="960"
 	height="480"
-	srcset="/p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_480x0_resize_box_3.png 480w, /p/assignment-01-03-geoai/unnamed-chunk-6-1_hu1dd225b8de6ebb5bf6dec4b6c90d5f7d_149669_1024x0_resize_box_3.png 1024w"
+	srcset="/p/assignment-05-data-analysis/unnamed-chunk-3-1_hu836299f7c54b91dfe6a76d2d448ea3e4_14318_480x0_resize_box_3.png 480w, /p/assignment-05-data-analysis/unnamed-chunk-3-1_hu836299f7c54b91dfe6a76d2d448ea3e4_14318_1024x0_resize_box_3.png 1024w"
 	loading="lazy"
-	
-		alt="Plot2"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
+		data-flex-grow="200"
+		data-flex-basis="480px"
 	
-></p>
-<p>Lastly we can combine the original raster with the newly calculated
-indicies into object and save it.</p>
-<pre><code>dop_indices &lt;- c(dop, rgbI)
-saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
+>
+The plots show that the residuals are neither homoscedastic nor normally
+distributed, so we should have used a generalized model.</p>
+<h3 id="evaluation-of-the-shapiro-wilk-test">Evaluation of the Shapiro-Wilk test</h3>
+<p>Now we evaluate how often a normal distribution test on the residuals
+would reject it’s null-hypothesis if a regression model is not computed
+on the entire data set but 100 regression models are computed on 100
+sub-samples of the data set. The following code creates 100 random
+subsets with 50 Objects of the full data frame. For each subset we
+calculate a linear model. We use the Shapiro-Wilk test to test the
+residuals of the models for normal distribution. The p-values are being
+saved in a data frame and displayed in a histogram. The null hypothesis
+of the Shapiro-Wilk test is that the data is normally distributed. The
+p-value states the probability of the null hypothesis.</p>
+<pre><code>random_subsets &lt;- list()
+results &lt;- data.frame(Iteration = integer(0), P_Value = numeric(0))
+
+# Set the seed once for reproducibility
+set.seed(123) 
+
+for (i in 1:100) {
+  random_indices &lt;- sample(nrow(data), 50)
+  random_subsets[[i]] &lt;- data[random_indices, ]
+  
+  linear_model &lt;- lm(Settlement ~ Recreation, random_subsets[[i]])
+  p_value &lt;- shapiro.test(resid(linear_model))$p.value
+  results &lt;- rbind(results, data.frame(Iteration = i, P_Value = p_value))
+}
+
+ggplot(results, aes(x = P_Value)) +
+  geom_histogram(bins = 40) +
+  geom_vline(xintercept = 0.0375, color = 4, linetype = &quot;dashed&quot;) +
+  labs(title = &quot;Histogram of P-Values&quot;, x = &quot;P-Value&quot;, y = &quot;Frequency&quot;)+
+  geom_text(aes(label = &quot;p-value of 0.05&quot;, x = 0.075, y = 20), hjust = 0, vjust = 0, color = 4)
 </code></pre>
+<p>![]unnamed-chunk-4-1.png)</p>
+<p>In 77 of the 100 cases the p-value of the Shapiro-Wilk test is beneath
+or equal 0.05 which matches with the graphical analysis we did before.
+However, in 23 cases, the null hypothesis cannot be rejected. The
+variability in the test results across different subsets highlights the
+influence of sample size and selection on the performance of normality
+tests like Shapiro-Wilk and shows how randomness in sub sampling can
+lead to subsets that are not representative of the entire dataset.</p>
 
 </section>
 
@@ -449,19 +486,6 @@ saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
     <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/assignment-05-data-analysis/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Assignment 05 - Data analysis</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -510,6 +534,19 @@ saveRDS(dop_indices, file.path(envrmt$path_data, &quot;dop_indices.RDS&quot;))
 
         <div class="article-details">
             <h2 class="article-title">Assignment 01 - Data analysis</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/assignment-01-03-geoai/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Assignment 01-03 - GeoAI</h2>
         </div>
     </a>
 </article>
